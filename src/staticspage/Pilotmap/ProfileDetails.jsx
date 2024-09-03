@@ -260,7 +260,6 @@ const ProfileDetails = () => {
 
   const isEmpty = Object.keys(profileObj).length === 0;
 
-
   return (
     <section className="details_p">
       <div className="bg_top"></div>
@@ -816,11 +815,7 @@ const ProfileDetails = () => {
                           <div className="heasding_front">Equipment</div>
                           <div className="p-3 ">
                             {equipment ? (
-                              equipment?.payload != '' &&
-                                equipment?.camera_specification &&
-                                equipment?.camera_specification?.length != 0 &&
-                                equipment?.drone &&
-                                equipment?.drone?.length != 0 ? (
+                                (equipment?.camera_specification?.length > 0 ||  equipment?.drone?.length  > 0) ? (
                                 <>
                                   {equipment?.payload && (
                                     <p className="no_data">
