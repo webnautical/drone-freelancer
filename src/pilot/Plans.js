@@ -189,9 +189,8 @@ const Plans = () => {
           amount: plan.amount
         };
         navigate('/user/plans/success', { state: { data: successParam } });
-      } else {
-        navigate('/user/plans/success');
-      }
+      } 
+      
     } catch (error) {
       if (error.response.status == 400) {
         toastifyError(error.response.data.message)

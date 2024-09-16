@@ -1154,9 +1154,8 @@ export default function Profileedit() {
 
                         </div>
                       </Grid>
-                      <Grid item xl={3} lg={4} md={4} sm={6} xs={12}>
+                      {/* <Grid item xl={3} lg={4} md={4} sm={6} xs={12}>
                         <div className="group error ">
-                          {/* <span className="">Email (All inquiries are sent to this email)*</span> */}
                           <input
                             className="inputMaterial readonly"
                             type="text"
@@ -1164,13 +1163,12 @@ export default function Profileedit() {
                             label="skdjks"
                             name="email"
                             value={valuees.email}
-                          // onChange={handlechangeing}
-                          // readOnly
+                       
                           />
                           <label htmlFor="firstName">Email (All inquiries are sent to this email)*</label> <span className="bar"></span>
                           <span className="errmsg">{error.email}</span>
                         </div>
-                      </Grid>
+                      </Grid> */}
                       <Grid item xl={3} lg={4} md={4} sm={6} xs={12}>
                         <div className="group  error">
                           <input
@@ -1352,7 +1350,7 @@ export default function Profileedit() {
 
                       <Grid container spacing={2} className="pd">
                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                          <h2 className="heding_globe">Social Links</h2>
+                          <h2 className="heding_globe">Links</h2>
                         </Grid>
                         <Grid item xl={3} lg={4} md={4} sm={6} xs={12}>
                           <div className="group  error">
@@ -1416,12 +1414,12 @@ export default function Profileedit() {
                             <input
                               className="inputMaterial"
                               type="text"
-                              placeholder="Link"
+                              placeholder="Your info/customer email"
                               name="twitter_Link"
                               value={valuees.twitter_Link}
                               onChange={handlechangeing}
                             />
-                            <label htmlFor="firstName">Twitter</label>
+                            <label htmlFor="firstName">Contact email</label>
                             <span className="bar"></span>
                           </div>
                         </Grid>

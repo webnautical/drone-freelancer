@@ -264,7 +264,7 @@ const Advertisement = () => {
                                                             <div className="file-uploader">
                                                                 <label htmlFor="file20" className="global_file_upload_deisgn">
                                                                     <InsertPhotoIcon />
-                                                                    Breadcrumb Image (Recommended size 370px x 300px)
+                                                                    Breadcrumb Image (Recommended size 306px x 368px)
                                                                     <input type="file" id="file20" accept="image/*" onChange={handleImageUpload} />
                                                                 </label>
                                                             </div>

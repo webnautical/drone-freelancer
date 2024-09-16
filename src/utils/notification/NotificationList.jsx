@@ -35,11 +35,11 @@ import { axiosInstance } from "Utility/Api";
 import ComponentSkeleton from "pages/components-overview/ComponentSkeleton";
 import { timeAgo } from "Utility/Date";
 import { CloseOutlined } from "../../../node_modules/@mui/icons-material/index";
+import { useNavigate } from "../../../node_modules/react-router-dom/dist/index";
 const NotificationList = () => {
 
     const [notification, setNotificationList] = useState([])
-    // const [notificationCount] = useState(0)
-
+    const navigate = useNavigate()
     const itemsPerPage = 20;
     const [currentPage, setCurrentPage] = useState(1);
     const [total, setTotal] = useState();
@@ -64,8 +64,12 @@ const NotificationList = () => {
         }
     };
     const handleNavigate = async (row) => {
-        const detailsPageURL = `/profile-details/${row.user_id}`;
-        window.open(detailsPageURL, '_blank');
+        if(row?.typeId){
+            navigate('/admin/postedjob')
+        }else{
+            const detailsPageURL = `/profile-details/${row.user_id}`;
+            window.open(detailsPageURL, '_blank');
+        }
     }
     useEffect(() => {
         getData(currentPage);
@@ -77,15 +81,14 @@ const NotificationList = () => {
     };
 
     const removeNotification = async (data) => {
-        const updatedItems = notification.filter((item) => item._id !== data._id);
+        const updatedItems = notification?.filter((item) => item._id !== data._id);
         if (notification.length == 1) {
             getData()
         }
         setNotificationList(updatedItems);
-        // setNotificationCount(notificationCount - 1);
         const params = { id: data?._id }
         await axiosInstance.post('/admin/seenadminnotification', params)
-      }
+    }
 
 
     return (
@@ -120,11 +123,18 @@ const NotificationList = () => {
                                         {notification.map((row, key) => (
                                             <StyledTableRow key={row._id}>
                                                 <StyledTableCell component="th" scope="row" align="center">
-                                                {(currentPage - 1) * itemsPerPage + key + 1}
+                                                    {(currentPage - 1) * itemsPerPage + key + 1}
                                                 </StyledTableCell>
 
                                                 <StyledTableCell>
-                                                    <strong className='text-uppercase'>{row.user_name}</strong> has updated their <strong>{row.updated_key.replace(/_/g, ' ')}</strong> - ({row.updated_value})
+                                                    {
+                                                        row?.updated_key ?
+                                                            <>
+                                                                <strong className='text-uppercase'>{row.user_name}</strong> has updated their <strong>{row?.updated_key?.replace(/_/g, ' ')}</strong> - ({row.updated_value})
+                                                            </>
+                                                            :
+                                                            <span>{row?.message}</span>
+                                                    }
                                                 </StyledTableCell>
 
 

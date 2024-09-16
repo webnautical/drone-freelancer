@@ -271,7 +271,7 @@ export default function Jobs() {
                           <div className="view_btn">
                             <div className='appliad_tag submit_quote'>
                               {item.bidding_status == "Submitted" && (
-                             <p>Quaote Submited</p>
+                             <p>Quote Submitted</p>
                               )}
                             </div>
                             <button className="global_btn " onClick={() => viewDetails(item)}>

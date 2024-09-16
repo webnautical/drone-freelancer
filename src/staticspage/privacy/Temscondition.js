@@ -1,16 +1,14 @@
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 
+import Whitedrone from '../../assets/images/whitedrone.png';
 
 import { useState, useEffect } from 'react';
 import config from 'config';
-import Breacrumb from 'staticspage/Header/Breacrumb';
 
 const Temscondition = () => {
   const [staticdata, setStaticdata] = useState([]);
-  console.log(staticdata, 'dhhd');
   const getData = async () => {
-    // setloading(true);
     try {
       fetch(`${config.url}/admin/getStaticdatabyUrl`, {
         method: 'POST',
@@ -26,7 +24,6 @@ const Temscondition = () => {
         })
         .then((data) => {
           if (data.message === 'Data get successfully') {
-            // console.log(data)
             setStaticdata(data?.getdatas[0]);
           }
         });
@@ -41,7 +38,29 @@ const Temscondition = () => {
   return (
     <>
       <div className="faq_page">
-      <Breacrumb />
+        <section className="breacrumb"
+          style={{
+            backgroundImage: `url(${staticdata?.image})`,
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            padding: '195px 0 120px',
+          }}
+        >
+          <Container>
+            <Row className="justify-content-center">
+              <Col md="8" className="text-center">
+                <div className="bread_heading">
+                  <h2>Term & Conditions</h2>
+                  <ul>
+                    <li>Home</li>
+                    <img src={Whitedrone} alt="logo" style={{ maxWidth: '', maxHeight: '' }} />
+                    <li>Term & Conditions</li>
+                  </ul>
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        </section>
 
 
         <section className="faq">
@@ -52,9 +71,8 @@ const Temscondition = () => {
                   <div>
                     <p>{staticdata?.title}</p>
                     <div>
-                    {staticdata.content ? (
+                      {staticdata.content ? (
                         <>
-                          {/* <p>{staticdata.content}</p> */}
                           <div dangerouslySetInnerHTML={{ __html: staticdata?.content }} />
                         </>
                       ) : null}

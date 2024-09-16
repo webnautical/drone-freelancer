@@ -74,7 +74,6 @@ const Privacy = () => {
                     <div>
                       {staticdata.content ? (
                         <>
-                          {/* <p>{staticdata.content}</p> */}
                           <div dangerouslySetInnerHTML={{ __html: staticdata?.content }} />
                         </>
                       ) : null}

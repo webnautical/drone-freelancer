@@ -629,7 +629,7 @@ const ProfileDetails = () => {
                                         ) : (
                                           <>
                                             {' '}
-                                            <p className="no_data text-capitalize">There are no portfolio images to display </p>
+                                            <p className="no_data">There is no portfolio to display.</p>
                                           </>
                                         )}
                                       </Grid>
@@ -694,7 +694,7 @@ const ProfileDetails = () => {
                                         ) : (
                                           <>
                                             {' '}
-                                            <p className="no_data text-capitalize">There are no portfolio yt videos to display </p>
+                                            <p className="no_data">There is no portfolio to display. </p>
                                           </>
                                         )}
                                       </Grid>
@@ -763,7 +763,7 @@ const ProfileDetails = () => {
                                         ) : (
                                           <>
                                             {' '}
-                                            <p className="no_data text-capitalize">There are no portfolio 3D images to display </p>
+                                            <p className="no_data">There is no portfolio to display. </p>
                                           </>
                                         )}
                                       </Grid>

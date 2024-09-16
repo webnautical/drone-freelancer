@@ -286,6 +286,7 @@ const ViewPilot = () => {
                       <StyledTableCell align="left">Name</StyledTableCell>
                       <StyledTableCell align="left">Email</StyledTableCell>
                       <StyledTableCell align="left">Phone</StyledTableCell>
+                      <StyledTableCell align="left">Location</StyledTableCell>
                       <StyledTableCell align="left">Status</StyledTableCell>
                       <StyledTableCell align="left">Plan type</StyledTableCell>
                       <StyledTableCell align="left">Created Date</StyledTableCell>
@@ -305,6 +306,7 @@ const ViewPilot = () => {
                         </StyledTableCell>
                         <StyledTableCell align="center">{row.email}</StyledTableCell>
                         <StyledTableCell align="center">{row.phone}</StyledTableCell>
+                        <StyledTableCell align="center">{row.location}</StyledTableCell>
                         <StyledTableCell align="center">{row.status}</StyledTableCell>
                         <StyledTableCell align="center" className='text-uppercase'>{row.subscription_type}</StyledTableCell>
                         <StyledTableCell align="center">{timeAgo(row.created_at)}</StyledTableCell>

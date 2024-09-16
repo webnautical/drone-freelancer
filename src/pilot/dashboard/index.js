@@ -615,7 +615,7 @@ const DashboardDefault = () => {
                                   ))
                                 ) : (
                                   <>
-                                    <p className="mt-4 no_data text-capitalize">There are no portfolio images to display </p>
+                                    <p className="mt-4 no_data">There is no portfolio to display. </p>
                                   </>
                                 )}
                               </Grid>
@@ -694,7 +694,7 @@ const DashboardDefault = () => {
                                 ) : (
                                   <>
                                     {' '}
-                                    <p className="mt-4 no_data text-capitalize">There are no portfolio yt videos to display </p>
+                                    <p className="mt-4 no_data">There is no portfolio to display. </p>
                                   </>
                                 )}
                               </Grid>
@@ -766,7 +766,7 @@ const DashboardDefault = () => {
                                 ) : (
                                   <>
                                     {' '}
-                                    <p className="mt-4 no_data text-capitalize">There are no portfolio 3D images to display </p>
+                                    <p className="mt-4 no_data">There is no portfolio to display. </p>
                                   </>
                                 )}
                               </Grid>
@@ -802,7 +802,7 @@ const DashboardDefault = () => {
                         ) : (
                           <>
                             <div className="heding_details_box">
-                              <p className="no_data mb-0">There are no portfolio to display</p>
+                              <p className="no_data mb-0">There is no portfolio to display.</p>
                             </div>
                           </>
                         )}

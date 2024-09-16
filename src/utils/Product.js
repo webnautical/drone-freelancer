@@ -17,8 +17,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import SwipeLeftIcon from '@mui/icons-material/SwipeLeft';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
+// import SwipeLeftIcon from '@mui/icons-material/SwipeLeft';
+// import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import Tooltip from '@mui/material/Tooltip';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useState, useEffect } from 'react';
@@ -52,6 +52,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     }
 }));
 import { handleDownloadExcel } from "../Utility/Utility"
+import { Checkbox, FormControl, FormControlLabel } from '../../node_modules/@mui/material/index';
 const Product = () => {
     const navigate = useNavigate();
     const [userList, setUserList] = useState([]);
@@ -122,8 +123,7 @@ const Product = () => {
                 })
                 .then((data) => {
                     if (data.message === "Product updated successfully") {
-                        // navigate(`${config.basename}/utils/pilot`);
-                        window.location.reload();
+                        getData()
                         setloading(false);
                     }
                     setloading(false);
@@ -150,8 +150,7 @@ const Product = () => {
                 })
                 .then((data) => {
                     if (data.message === "Product updated successfully") {
-                        // navigate(`${config.basename}/utils/pilot`);
-                        window.location.reload();
+                        getData()
                         setloading(false);
                     }
                     setloading(false);
@@ -200,6 +199,8 @@ const Product = () => {
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+
+    console.log("currentItems", currentItems)
     return (
         <div>
             {loading ? (
@@ -230,7 +231,6 @@ const Product = () => {
                     </div>
                     <Grid container spacing={3}>
                         <Grid item xs={12} lg={12}>
-                            {/* <div>User management</div> */}
                             <TableContainer component={Paper} className="dahbard_table_inner">
                                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
                                     <TableHead>
@@ -266,15 +266,15 @@ const Product = () => {
                                                 <StyledTableCell align="center">{row.price}</StyledTableCell>
                                                 <StyledTableCell align="center">{row.location}</StyledTableCell>
                                                 <StyledTableCell align="center">{row.product_approval}</StyledTableCell>
-                                                
+
                                                 <StyledTableCell align="center">{row.userName}</StyledTableCell>
                                                 <StyledTableCell align="center">{row.userEmail}</StyledTableCell>
                                                 <StyledTableCell align="center">
-                                                    <Button className="view_btn action-btn d-block" onClick={() => navigate(`${config.basename}/sendmessage`, {state: {_id : row.user_id}})}>
+                                                    <Button className="view_btn action-btn d-block" onClick={() => navigate(`${config.basename}/sendmessage`, { state: { _id: row.user_id } })}>
                                                         <Tooltip title="Send message"><ForwardToInboxIcon /></Tooltip>
                                                     </Button>
                                                 </StyledTableCell>
-                                                
+
                                                 <StyledTableCell align="center">
                                                     <div
                                                         style={{
@@ -291,16 +291,54 @@ const Product = () => {
                                                                 <RemoveRedEyeIcon />
                                                             </Tooltip>
                                                         </Button>
-                                                        <Button className="dlt_btn action-btn d-block" onClick={() => rejectProduct(row)}>
+                                                        {/* <Button className="dlt_btn action-btn d-block" onClick={() => rejectProduct(row)}>
                                                             <Tooltip title="Reject Product">
                                                                 <SwipeLeftIcon />
                                                             </Tooltip>
-                                                        </Button>
-                                                        <Button className="edit_btn_global action-btn d-block" onClick={() => handleApproved(row)}>
+                                                        </Button> */}
+                                                        {/* <Button className="edit_btn_global action-btn d-block" onClick={() => handleApproved(row)}>
                                                             <Tooltip title="Approve Product">
                                                                 <CheckBoxIcon />
                                                             </Tooltip>
-                                                        </Button>
+                                                        </Button> */}
+                                                        <FormControl className="check_select_outer mb-0">
+                                                            <Tooltip
+                                                                title={row.product_approval === "approved" ? "Product is already approved" : "Reject Product"}
+                                                            >
+                                                                <FormControlLabel
+                                                                    control={
+                                                                        <Checkbox
+                                                                            checked={row.product_approval === "reject"}
+                                                                            onChange={() => rejectProduct(row)}
+                                                                            disabled={row.product_approval !== "approved"} // Disable if product is approved
+                                                                            style={{
+                                                                                color: row.product_approval !== "approved" ? '#1677ff' : undefined,
+                                                                            }}
+                                                                        />
+                                                                    }
+                                                                />
+                                                            </Tooltip>
+                                                        </FormControl>
+
+                                                        <FormControl className="check_select_outer mb-0">
+                                                            <Tooltip
+                                                                title={row.product_approval === "reject" ? "Product is already rejected" : "Approve Product"}
+                                                            >
+                                                                <FormControlLabel
+                                                                    control={
+                                                                        <Checkbox
+                                                                            checked={row.product_approval === "approved"}
+                                                                            onChange={() => handleApproved(row)}
+                                                                            disabled={row.product_approval !== "reject"} // Disable if product is rejected
+                                                                            style={{
+                                                                                color: row.product_approval !== "reject" ? '#1677ff' : undefined,
+                                                                            }}
+                                                                        />
+                                                                    }
+                                                                />
+                                                            </Tooltip>
+                                                        </FormControl>
+
                                                         <Button className="view_btn action-btn d-block" onClick={() => handleEdit(row)}>
                                                             <Tooltip title="Edit Product">
                                                                 <EditNoteIcon />

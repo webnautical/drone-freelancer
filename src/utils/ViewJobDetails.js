@@ -13,23 +13,13 @@ import {
   // useNavigate
 } from 'react-router';
 
-// import { toastifyError, toastifySuccess } from 'Utility/Utility';
-// import config from 'config';
 export default function ViewJobDetails() {
-  // const navigate = useNavigate();
 
   const location = useLocation();
-
   const Jobdata = location.state;
-
-  console.log(Jobdata);
-
-  // const [Jobdatas, setJobdatas] = useState(Jobdata);
-
   const getFileType = (url) => {
     const extension = url.split('.').pop().toLowerCase();
 
-    // Map file extensions to file types
     const fileTypeMap = {
       jpg: 'image',
       jpeg: 'image',
@@ -95,17 +85,6 @@ export default function ViewJobDetails() {
     );
   };
 
-  // const handleform = () => {
-  //   if (Jobdata.pilot_id !== '') {
-  //     toastifySuccess('get pilot data successfully!');
-
-  //     navigate(`${config.basename}/viewpilotdata`, {
-  //       state: Jobdata?.pilot_id
-  //     });
-  //   } else {
-  //     toastifyError('Not accept this job!!');
-  //   }
-  // };
 
   return (
     <div>
@@ -115,13 +94,7 @@ export default function ViewJobDetails() {
             <Grid item xs={12}>
               <div className=" page_heading d-flex justify-content-between align-items-center">
                 <h5>Job Information</h5>
-                {/* <Button className="global_dashbtn" onClick={handleform}>
-                  View accepted details
-                </Button> */}
               </div>
-              {/* <Button className="global_dashbtn" onClick={handleform}>
-                View Portfolio
-              </Button> */}
             </Grid>
           </Grid>
 
@@ -131,6 +104,13 @@ export default function ViewJobDetails() {
                 <h3>Job Title</h3>
                 <p>{Jobdata?.job_details?.name}</p>
                 {/* <TextField variant="outlined" id="name" label="Name" name="name" value={Jobdata.name} /> */}
+              </FormControl>
+            </Grid>
+
+            <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
+              <FormControl fullWidth>
+                <h3>Job Category</h3>
+                <p>{Jobdata?.jobCategory?.category_name}</p>
               </FormControl>
             </Grid>
            
