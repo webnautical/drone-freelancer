@@ -150,7 +150,6 @@ const Marketplace = () => {
   //   }
   // };
 
-  console.log("scrollData", scrollData)
 
   return (
     <>
@@ -336,6 +335,7 @@ const Marketplace = () => {
                               <div className='adverties_ment_box mb-3' key={i}>
                                 <Link to={item?.advertisement?.redirect_url} target='_blank'>
                                   <img src={apiBaseURL() + "/files/" + item?.advertisement?.image} alt='ad-banner' />
+                                <span>Sponsored</span>
                                 </Link>
                               </div>
                           }
@@ -343,25 +343,7 @@ const Marketplace = () => {
                       ))}
                     </Row>
                   </Col>
-
-                  {/* <Col md="3">
-                    {
-                      advertisementList?.length > 0 ?
-                        <>
-                          {
-                            advertisementList?.map((item, i) => (
-                              <div className='adverties_ment_box mb-3' key={i}>
-                                <Link to={item?.redirect_url} target='_blank'>
-                                  <img src={apiBaseURL() + "/files/" + item?.image} alt='ad-banner' />
-                                </Link>
-                              </div>
-                            ))
-                          }
-                        </>
-                        :
-                        <></>
-                    }
-                  </Col> */}
+                 
                 </Row>
               </InfiniteScroll>
             </Container>

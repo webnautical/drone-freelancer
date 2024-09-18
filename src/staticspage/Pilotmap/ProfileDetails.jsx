@@ -260,6 +260,7 @@ const ProfileDetails = () => {
 
   const isEmpty = Object.keys(profileObj).length === 0;
 
+  console.log("pilotInfo",pilotInfo)
   return (
     <section className="details_p">
       <div className="bg_top"></div>
@@ -504,11 +505,8 @@ const ProfileDetails = () => {
 
 
 
-                  {pilotInfo.role == 'Pilot' && (
+                  {pilotInfo?.role == 'Pilot' && (
                     <>
-
-                      {/* Personal Info */}
-
                       {
                         (pilotInfo?.subscription_type?.toLowerCase() === "gold" || pilotInfo?.subscription_type?.toLowerCase() === "silver") && (
                           <Col md="12" className="mt-3">
@@ -568,7 +566,7 @@ const ProfileDetails = () => {
 
                                     {pilotInfo?.twitter_link && (
                                       <p className="no_data">
-                                        <strong>Twitter :</strong> <Link to={pilotInfo?.twitter_link} target='_blank'><LinkIcon /></Link>
+                                        <strong>Contact Email :</strong> <Link to={`mailto:${pilotInfo?.twitter_link}`} target='_blank'>{pilotInfo?.twitter_link}</Link>
                                       </p>
                                     )}
 

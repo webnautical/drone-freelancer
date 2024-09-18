@@ -73,9 +73,9 @@ const PaymentBTN = ({ extraAreaCat, setExtraAreaCat, userData, setAmntLoading, t
                 setAmntLoading(false)
                 userData()
                 toastifySuccess("Extra Category Purchase SuccesFully !!")
-                if(planPage){
+                if (planPage) {
                     navigate('/user/plans')
-                }else{
+                } else {
                     setExtraAreaCat([])
                 }
             } else {
@@ -97,6 +97,8 @@ const PaymentBTN = ({ extraAreaCat, setExtraAreaCat, userData, setAmntLoading, t
         }
     }
 
+    console.log("getAllLocatData()", getAllLocatData())
+    console.log("checkPlantype", checkPlantype())
 
     const [formData, setFormData] = useState({
         company_name: '',
@@ -260,7 +262,7 @@ const PaymentBTN = ({ extraAreaCat, setExtraAreaCat, userData, setAmntLoading, t
         <>
             {
                 checkPlantype() &&
-                <p className='text-danger d-none'>Alert : After purchase plan ,you can buy extra category. </p>
+                <p className='text-danger'>Alert : After purchase plan ,you can buy extra category. </p>
             }
             {/* <PayPalScriptProvider options={{ 'client-id': 'AaJWhfD8M3AdqwytIgE4pCYcpkUnFcmRhwL-gtQP0fDjw4SlV1bn20Te9VTjzJm1AC37QO9sKeTuZLm1' }}>
                 <PayPalButtons
@@ -468,10 +470,12 @@ const PaymentBTN = ({ extraAreaCat, setExtraAreaCat, userData, setAmntLoading, t
                         </DialogActions>
                     </Dialog>
                 </React.Fragment>
-
-                <button className="global_btn" onClick={handleModal}>
-                    Pay
-                </button>
+                {
+                    checkPlantype() ?
+                        <button className="global_btn" style={{ cursor: "not-allowed" }}>Pay</button>
+                        :
+                        <button className="global_btn" onClick={handleModal}>Pay</button>
+                }
 
             </div>
         </>

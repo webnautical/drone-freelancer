@@ -495,7 +495,7 @@ export default function Profileedit() {
     category: '',
     radius: '',
     extra_area_category: '',
-    qualification_expiry: '',
+    // qualification_expiry: '',
     lisencs_type: '',
     pro_drone_oprator_longtime: '',
     rate_skill_level: '',
@@ -510,7 +510,7 @@ export default function Profileedit() {
 
   const checkValidation = () => {
     setAddUpdateApiCallCount(addUpdateApiCallCount + 1);
-    const { first_name, location1, last_name, company, state, Suburb, multiCategory, phone, flight_time_limit, qualification_expiry } = valuees;
+    const { first_name, location1, last_name, company, state, Suburb, multiCategory, phone, flight_time_limit } = valuees;
     const australiaPhoneNumberRegex = /^(?:\+61|0)(?:2|3|4|7|8)(?:\d{8}|\d{9})$/;
 
     if (activeStep == 0) {
@@ -639,15 +639,15 @@ export default function Profileedit() {
           return { ...prevValues, ['flight_time_limit']: true };
         });
       }
-      if (qualification_expiry == '') {
-        setError((prevValues) => {
-          return { ...prevValues, ['qualification_expiry']: 'required *' };
-        });
-      } else {
-        setError((prevValues) => {
-          return { ...prevValues, ['qualification_expiry']: true };
-        });
-      }
+      // if (qualification_expiry == '') {
+      //   setError((prevValues) => {
+      //     return { ...prevValues, ['qualification_expiry']: 'required *' };
+      //   });
+      // } else {
+      //   setError((prevValues) => {
+      //     return { ...prevValues, ['qualification_expiry']: true };
+      //   });
+      // }
       if (windspeed == '') {
         setError((prevValues) => {
           return { ...prevValues, ['maximum_wind_speed']: 'required *' };
@@ -1671,11 +1671,11 @@ export default function Profileedit() {
                               min={getCurrentDate()}
                               onChange={handlechangeings}
                             />
-                            <label htmlFor="firstName">Licence Expired (If Applicable)</label> <span className="bar"></span>
+                            <label htmlFor="firstName">Licence Expiry Date (If Applicable)</label> <span className="bar"></span>
                             <span style={{ position: 'absolute', top: '10px', background: '#fff', fontSize: '17px', padding: '2px 6px' }}>
                               {valuees.qualification_expiry}
                             </span>
-                            <span className="errmsg">{error.qualification_expiry}</span>
+                            {/* <span className="errmsg">{error.qualification_expiry}</span> */}
 
                           </div>
                         </Grid>

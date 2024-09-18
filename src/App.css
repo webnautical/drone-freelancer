@@ -542,4 +542,19 @@ overflow: hidden;
       transform: translateY(-15px);
    }
  }
+
+ .adverties_ment_box{
+  position: relative;
+  span{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: #005789;
+    color: #ffffff;
+    padding: 6px 22px;
+    font-size: 12px;
+    margin-left: 4px;
+    border-radius: 2px 0px 0px 0px;
+  }
+ }
  

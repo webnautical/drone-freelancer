@@ -202,7 +202,7 @@ export default function UserDetails() {
                 <TextField
                   variant="outlined"
                   id="twitter_link"
-                  label="Twiter link"
+                  label="Contact Email"
                   name="twitter_link"
                   value={Userdata.twitter_link}
                 />
@@ -214,7 +214,7 @@ export default function UserDetails() {
                 <TextField
                   variant="outlined"
                   id="tiktok_link"
-                  label="Twiter link"
+                  label="Tiktok link"
                   name="tiktok_link"
                   value={Userdata.tiktok_link}
                 />
