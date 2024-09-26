@@ -116,7 +116,7 @@ a .option_bar {
 }
 
 .logo_footer img {
-  width: 250px;
+  width: 290px;
 }
 
 .chat_btn button {
@@ -557,4 +557,11 @@ overflow: hidden;
     border-radius: 2px 0px 0px 0px;
   }
  }
+
+
+
+ .long_text label{ position: unset!important;     font-size: 12px!important;
+  color: #747474!important; }
+
+  .long_text .top_text { position: unset!important;}
  

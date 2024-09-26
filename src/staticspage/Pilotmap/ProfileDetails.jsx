@@ -30,11 +30,12 @@ import DialogTitle from '@mui/material/DialogTitle';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import loginimgmodal from '../../assets/images/log.png';
-import LinkIcon from '@mui/icons-material/Link';
+// import LinkIcon from '@mui/icons-material/Link';
 // import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import { defaultUserIMG, toastifySuccess } from 'Utility/Utility';
 import { axiosInstance } from 'Utility/Api';
+import SocialLinkCom from 'Utility/SocialLinkCom';
 const ProfileDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -260,7 +261,7 @@ const ProfileDetails = () => {
 
   const isEmpty = Object.keys(profileObj).length === 0;
 
-  console.log("pilotInfo",pilotInfo)
+  console.log("pilotInfo", pilotInfo)
   return (
     <section className="details_p">
       <div className="bg_top"></div>
@@ -540,29 +541,10 @@ const ProfileDetails = () => {
                                       </p>
                                     )}
 
-                                    {pilotInfo?.website_link && (
-                                      <p className="no_data">
-                                        <strong>Website :</strong> <Link to={pilotInfo?.website_link} target='_blank'><LinkIcon /></Link>
-                                      </p>
-                                    )}
-
-                                    {pilotInfo?.facebook_link && (
-                                      <p className="no_data">
-                                        <strong>Facebook :</strong> <Link to={pilotInfo?.facebook_link} target='_blank'><LinkIcon /></Link>
-                                      </p>
-                                    )}
-
-                                    {pilotInfo?.instagram_link && (
-                                      <p className="no_data">
-                                        <strong>Instagram:</strong> <Link to={pilotInfo?.instagram_link} target='_blank'><LinkIcon /></Link>
-                                      </p>
-                                    )}
-
-                                    {pilotInfo?.tiktok_link && (
-                                      <p className="no_data">
-                                        <strong>Tiktok :</strong> <Link to={pilotInfo?.tiktok_link} target='_blank'><LinkIcon /></Link>
-                                      </p>
-                                    )}
+                                    <SocialLinkCom label="Website" url={pilotInfo?.website_link} />
+                                    <SocialLinkCom label="Facebook" url={pilotInfo?.facebook_link} />
+                                    <SocialLinkCom label="Instagram" url={pilotInfo?.instagram_link} />
+                                    <SocialLinkCom label="TikTok" url={pilotInfo?.tiktok_link} />
 
                                     {pilotInfo?.twitter_link && (
                                       <p className="no_data">
@@ -813,7 +795,7 @@ const ProfileDetails = () => {
                           <div className="heasding_front">Equipment</div>
                           <div className="p-3 ">
                             {equipment ? (
-                                (equipment?.camera_specification?.length > 0 ||  equipment?.drone?.length  > 0) ? (
+                              (equipment?.camera_specification?.length > 0 || equipment?.drone?.length > 0) ? (
                                 <>
                                   {equipment?.payload && (
                                     <p className="no_data">

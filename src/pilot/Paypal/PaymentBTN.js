@@ -264,7 +264,7 @@ const PaymentBTN = ({ extraAreaCat, setExtraAreaCat, userData, setAmntLoading, t
                 checkPlantype() &&
                 <p className='text-danger'>Alert : After purchase plan ,you can buy extra category. </p>
             }
-            {/* <PayPalScriptProvider options={{ 'client-id': 'AaJWhfD8M3AdqwytIgE4pCYcpkUnFcmRhwL-gtQP0fDjw4SlV1bn20Te9VTjzJm1AC37QO9sKeTuZLm1' }}>
+            {/* <PayPalScriptProvider options={{ 'client-id': 'AVGl7uVRgL4EJorTFqWykbrX4Mqtcmow30S6z3vcvxMiQGA5r94ELvGfcnZfRGp31TwLW-OPdp79jxKJ' }}>
                 <PayPalButtons
                     createOrder={createOrder}
                     onSuccess={onSuccess}
@@ -415,7 +415,7 @@ const PaymentBTN = ({ extraAreaCat, setExtraAreaCat, userData, setAmntLoading, t
                                                     <PayPalScriptProvider
                                                         options={{
                                                             "client-id":
-                                                                "AaJWhfD8M3AdqwytIgE4pCYcpkUnFcmRhwL-gtQP0fDjw4SlV1bn20Te9VTjzJm1AC37QO9sKeTuZLm1",
+                                                                "AVGl7uVRgL4EJorTFqWykbrX4Mqtcmow30S6z3vcvxMiQGA5r94ELvGfcnZfRGp31TwLW-OPdp79jxKJ",
                                                         }}
                                                     >
                                                         <PayPalButtons

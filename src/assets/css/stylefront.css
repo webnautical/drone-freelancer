@@ -529,6 +529,7 @@ footer {
 
 .quick_links ul {
   padding: 0px;
+  margin: 0px;
 }
 
 .option_box {
@@ -2620,7 +2621,7 @@ header .navbar-collapse {
     margin: 0px 0px 40px;
   }
   .quick_links {
-    margin: 20px 0px;
+    margin: 0px 0px ;
   }
   .logo_footer img {
     width: 155px;

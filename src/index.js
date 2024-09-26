@@ -80,7 +80,8 @@ import PilotList from 'staticspage/Pilotmap/PilotList';
 
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-const stripePromise = loadStripe('pk_test_51PPi6VKc8CNsxNnE0tXJjUGr8pPvuSzncsDVMjyzrXyguJK9prbJdKBfyvdWPNxRgNgYidtr2chDkRejRKZFN8F900yJb3JEhE');
+// const stripePromise = loadStripe('pk_test_51PPi6VKc8CNsxNnE0tXJjUGr8pPvuSzncsDVMjyzrXyguJK9prbJdKBfyvdWPNxRgNgYidtr2chDkRejRKZFN8F900yJb3JEhE');
+const stripePromise = loadStripe('pk_live_51PPi6VKc8CNsxNnEKl4sXhOlDWoWMkxk3dTzolMRrD61VAXVOX3JER5HZORGmEtmyTteHIHk8QwIMf3E0v6rczZB00COjSh9DL');
 
 const container = document.getElementById('root');
 

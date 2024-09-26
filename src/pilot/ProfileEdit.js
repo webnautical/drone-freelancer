@@ -571,8 +571,6 @@ export default function Profileedit() {
         });
       }
 
-
-
       if (location1.trim() == '') {
         setError((prevValues) => {
           return { ...prevValues, ['location1']: 'Required *' };
@@ -583,7 +581,6 @@ export default function Profileedit() {
         });
       }
 
-      // Phone No Validation
       if (phone == '') {
         setError((prevValues) => {
           return { ...prevValues, ['phone']: 'Required *' };
@@ -639,15 +636,6 @@ export default function Profileedit() {
           return { ...prevValues, ['flight_time_limit']: true };
         });
       }
-      // if (qualification_expiry == '') {
-      //   setError((prevValues) => {
-      //     return { ...prevValues, ['qualification_expiry']: 'required *' };
-      //   });
-      // } else {
-      //   setError((prevValues) => {
-      //     return { ...prevValues, ['qualification_expiry']: true };
-      //   });
-      // }
       if (windspeed == '') {
         setError((prevValues) => {
           return { ...prevValues, ['maximum_wind_speed']: 'required *' };
@@ -1880,26 +1868,7 @@ export default function Profileedit() {
                           </Select>
                         </FormControl>
                       </Grid>
-                      {/* <Grid item xl={3} lg={4} md={4} sm={6} xs={12}>
-                        <FormControl sx={{ m: 1, minWidth: 120 }} className="normal_select">
-                          <span className="top_text">Payload</span>
-                          <Select
-                            value={payload}
-                            onChange={handleChangespayload}
-                            displayEmpty
-                            inputProps={{ 'aria-label': 'Without label' }}
-                            className="normal_select"
-                          >
-                            <MenuItem value="">Select</MenuItem>
-                            <MenuItem value={'Level 0 (Less Then 1 mph 0 m/s)'}>Level 0 (Less Then 1 mph 0 m/s)</MenuItem>
-                            <MenuItem value={'Level 1 (1 - 3 mph; 0.5-1.5 m/s)'}>Level 1 (1 - 3 mph; 0.5-1.5 m/s)</MenuItem>
-                            <MenuItem value={'Level 2 (4 - 7 mph; 2-3 m/s)'}>Level 2 (4 - 7 mph; 2-3 m/s)</MenuItem>
-                            <MenuItem value={'Level 4 (8 - 12 mph; 3.5-5 m/s)'}>Level 4 (8 - 12 mph; 3.5-5 m/s)</MenuItem>
-                            <MenuItem value={'Level 5 (19 - 24 mph; 8.5-10.5 m/s)'}>Level 5 (19 - 24 mph; 8.5-10.5 m/s)</MenuItem>
-                          </Select>
-                          <span className="errmsg">{error.payload}</span>
-                        </FormControl>
-                      </Grid> */}
+                     
                     </Grid>
                   ) : (
                     <div className="all_cat_box">

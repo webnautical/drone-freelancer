@@ -504,7 +504,7 @@ const ApplyNow = ({ jobData }) => {
                                   {
                                     planDetails &&
                                     <PayPalScriptProvider
-                                      options={{ "client-id": "AaJWhfD8M3AdqwytIgE4pCYcpkUnFcmRhwL-gtQP0fDjw4SlV1bn20Te9VTjzJm1AC37QO9sKeTuZLm1" }}
+                                      options={{ "client-id": "AVGl7uVRgL4EJorTFqWykbrX4Mqtcmow30S6z3vcvxMiQGA5r94ELvGfcnZfRGp31TwLW-OPdp79jxKJ" }}
                                     >
                                       <PayPalButtons
                                         className="paypal_btn text-center"

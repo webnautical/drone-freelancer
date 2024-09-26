@@ -474,7 +474,7 @@ const Lostpet = () => {
                   </div>
                 </Col>
 
-                <Col md="6" className="mb-4">
+                <Col md="6" className="mb-5">
                   <FormControl sx={{ m: 1, minWidth: 120 }} className="manage_space normal_select">
                     <span className="top_text">
                       Search by <span className="requird_txt">*</span>
@@ -538,7 +538,7 @@ const Lostpet = () => {
                 </Col>
 
                 <Col md="6" className="mb-4">
-                  <FormControl sx={{ m: 1, minWidth: 120 }} className="normal_select">
+                  <FormControl sx={{ m: 1, minWidth: 120 }} className="long_text normal_select">
                     <span className="top_text">
                       I am currently being affected by a natural disaster. <span className="requird_txt">*</span>
                     </span>
@@ -560,7 +560,8 @@ const Lostpet = () => {
                 </Col>
 
                 <Col md="6" className="mb-4">
-                  <div className="group  error">
+                  <div className="group long_text  error">
+                  <label htmlFor="first">If you choose yes affected by a natural disaster type name (optional) </label>
                     <input
                       className="inputMaterial"
                       type="text"
@@ -570,7 +571,7 @@ const Lostpet = () => {
                       placeholder="Type Disaster Name "
                     />
                     <span className="bar"></span>
-                    <label htmlFor="first">If you choose yes affected by a natural disaster type name (optional) </label>
+                 
                   </div>
                 </Col>
 
@@ -597,7 +598,7 @@ const Lostpet = () => {
                 </Col>
 
                 <Col md="6" className="mb-4">
-                  <FormControl sx={{ m: 1, minWidth: 120 }} className="normal_select">
+                  <FormControl sx={{ m: 1, minWidth: 120 }} className="long_text normal_select">
                     <span className="top_text">
                       I am reporting the following animal missing (please submit one report per animal).{' '}
                       <span className="requird_txt">*</span>
@@ -646,7 +647,10 @@ const Lostpet = () => {
                 </Col>
 
                 <Col md="6" className="mb-4">
-                  <div className="group  error">
+                  <div className="group long_text error">
+                  <label htmlFor="first">
+                      If this is not your animal, please explain who s animal it is and why you are reporting it.
+                    </label>
                     <input
                       className="inputMaterial"
                       type="text"
@@ -656,9 +660,7 @@ const Lostpet = () => {
                       placeholder="Type..."
                     />
                     <span className="bar"></span>
-                    <label htmlFor="first">
-                      If this is not your animal, please explain who s animal it is and why you are reporting it.
-                    </label>
+                
                   </div>
                 </Col>
 
