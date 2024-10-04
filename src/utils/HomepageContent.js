@@ -38,13 +38,6 @@ export default function HomepageContent() {
     }
   });
 
-  // const handleEditorChange = (event) => {
-  //   const { name, value } = event.target;
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     [name]: value
-  //   }));
-  // };
   const handleInputChange2 = (event) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({
@@ -332,8 +325,17 @@ export default function HomepageContent() {
           <h1 className="top_heading_pages_text  ">Home Page Content</h1>
           <Grid className="pages_global_background  p-4" container sx={{ my: 1 }}>
             <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className="mb-4 p-2">
-              {/* <span></span> */}
-              <CKEditor editor={ClassicEditor} name="ptag" data={formData.ptag} onChange={handleEditorChange} />
+              <CKEditor editor={ClassicEditor} name="ptag" data={formData.ptag}
+                onChange={handleEditorChange} config={{
+                  heading: {
+                    options: [
+                      { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                      { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                      { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                      { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' }
+                    ]
+                  }
+                }} />
 
             </Grid>
             <Grid item xl={6} lg={12} md={12} sm={12} xs={12} className="mb-4 p-2">
@@ -377,7 +379,16 @@ export default function HomepageContent() {
                   </h6>
                 </Grid>
                 <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className="mb-4 p-2">
-                  <CKEditor editor={ClassicEditor} name="tital" data={formData?.getStartedSection?.tital} onChange={handleInputChange22} />
+                  <CKEditor editor={ClassicEditor} name="tital" data={formData?.getStartedSection?.tital} onChange={handleInputChange22} config={{
+                    heading: {
+                      options: [
+                        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                        { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' }
+                      ]
+                    }
+                  }} />
 
                   {/* <FormControl className="mb-2" fullWidth>
                     <TextField

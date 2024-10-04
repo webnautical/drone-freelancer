@@ -15,14 +15,13 @@ const Breacrumb = () => {
         setBreadcrumbLoading(true)
         try {
             const res = await axiosInstance.post('/admin/getallStaticPagedata');
-            console.log("res", res)
             if (res?.data?.status === 200) {
                 const page = res?.data?.getdata.filter((item) => item.url === pageName)[0];
                 setPageData(page)
                 setBreadcrumbLoading(false)
             } else {
                 setPageData(null)
-                setBreadcrumbLoading(false)
+                setBreadcrumbLoading(false) 
             }
         } catch (error) {
             console.log(error)
@@ -32,8 +31,6 @@ const Breacrumb = () => {
     useEffect(() => {
         getPAgeData()
     }, [])
-
-    console.log("pageName", pageName)
 
     return (
         <>
@@ -57,7 +54,6 @@ const Breacrumb = () => {
                                         pageName == "how-it-works"  ||  pageName == "why-drone-freelancer"?
                                             <p dangerouslySetInnerHTML={{ __html: pageData?.content2 }} />
                                             :
-
                                             <div dangerouslySetInnerHTML={{ __html: pageData?.content }} />
                                     }
 

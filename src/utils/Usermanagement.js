@@ -57,9 +57,10 @@ import { toastifyError, toastifySuccess } from "Utility/Utility";
 import { timeAgo } from "Utility/Date";
 import { Checkbox, FormLabel, Radio, RadioGroup } from "../../node_modules/@mui/material/index";
 import { axiosInstance } from "Utility/Api";
+import { useParams } from "../../node_modules/react-router-dom/dist/index";
 const Usermanagement = () => {
   const [open, setOpen] = useState(false)
-
+  const { type } = useParams()
   const navigate = useNavigate();
   const itemsPerPage = 20;
   const [currentPage, setCurrentPage] = useState(1);
@@ -80,6 +81,7 @@ const Usermanagement = () => {
 
     setFilteredData(filteredResults);
   };
+
   const getData = async () => {
     setLoading(true)
     try {
@@ -107,6 +109,25 @@ const Usermanagement = () => {
 
     }
   };
+
+  const getPilotByParams = async () => {
+    setLoading(true)
+    try {
+      const res = await axiosInstance.post('/admin/getPilotsByPlan', { type: type })
+      if (res.data.status == 200) {
+        setFilteredData(res?.data?.userRecord);
+        setUserList(res?.data?.userRecord);
+        setLoading(false)
+      } else {
+        setFilteredData([]);
+        setUserList([]);
+        setLoading(false)
+      }
+    } catch (error) {
+      console.log(error)
+      setLoading(false)
+    }
+  }
 
   function startEdit(row) {
     try {
@@ -157,9 +178,13 @@ const Usermanagement = () => {
   };
 
   useEffect(() => {
-    getData();
+    if (type === "approved") {
+      getData();
+    } else {
+      getPilotByParams()
+    }
     getPlanSubs()
-  }, []);
+  }, [type]);
 
   function handleprefferd(row) {
     try {
@@ -262,7 +287,7 @@ const Usermanagement = () => {
   }
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredData?.slice(indexOfFirstItem, indexOfLastItem);
 
   const openAsignModal = (row) => {
     setOpen(true)
@@ -276,10 +301,10 @@ const Usermanagement = () => {
         "user_id": userDataObj?._id
       }
       const res = await axiosInstance.post('/admin/createSubscriptionPlanbyAdmin', params)
-      if(res.data.status == 200){
+      if (res.data.status == 200) {
         toastifySuccess(res?.data?.message)
         setOpen(false)
-      }else{
+      } else {
         toastifyError("Something went wrong !!")
       }
     } catch (error) {
@@ -318,163 +343,176 @@ const Usermanagement = () => {
             </Box>
           </div>
         ) : (<>
-          <Grid item xs={12} lg={12}>
-            <TableContainer component={Paper} className="dahbard_table_inner">
-              <Table className="text-start" sx={{ minWidth: 700 }} aria-label="customized table">
-                <TableHead>
-                  <TableRow>
-                    <StyledTableCell align="left">S.No.</StyledTableCell>
-                    <StyledTableCell align="left">Name</StyledTableCell>
-                    <StyledTableCell align="left">Email</StyledTableCell>
-                    <StyledTableCell align="left">Phone</StyledTableCell>
-                    <StyledTableCell align="left">Location</StyledTableCell>
 
-                    <StyledTableCell align="left">Status</StyledTableCell>
-                    <StyledTableCell align="left">Plan type</StyledTableCell>
-                    <StyledTableCell align="left">Created Date</StyledTableCell>
+          <>
+            <Grid item xs={12} lg={12}>
 
-                    <StyledTableCell align="left">Send message</StyledTableCell>
-                    <StyledTableCell align="left">Marketing Email</StyledTableCell>
-                    <StyledTableCell align="center">Action</StyledTableCell>
-                  </TableRow>
-                </TableHead>
+              <TableContainer component={Paper} className="dahbard_table_inner">
+                {
+                  userList?.length > 0 ?
+                    <Table className="text-start" sx={{ minWidth: 700 }} aria-label="customized table">
 
-                <TableBody>
-                  {currentItems.map((row, key) => (
-                    <StyledTableRow key={row._id}>
-                      <StyledTableCell component="th" scope="row" align="">
-                        {(currentPage - 1) * itemsPerPage + key + 1}
-                      </StyledTableCell>
-                      <StyledTableCell align="">
-                        {row.first_name} {row.last_name}
-                      </StyledTableCell>
-                      <StyledTableCell align="">
-                        {row.email}
-                      </StyledTableCell>
-                      <StyledTableCell align="">
-                        {row.phone}
-                      </StyledTableCell>
-                      <StyledTableCell align="center">{row.location}</StyledTableCell>
+                      <TableHead>
+                        <TableRow>
+                          <StyledTableCell align="left">S.No.</StyledTableCell>
+                          <StyledTableCell align="left">Name</StyledTableCell>
+                          <StyledTableCell align="left">Email</StyledTableCell>
+                          <StyledTableCell align="left">Phone</StyledTableCell>
+                          <StyledTableCell align="left">Location</StyledTableCell>
 
-                      <StyledTableCell align="">
-                        {row.status}
-                      </StyledTableCell>
-                      <StyledTableCell align="" className='text-uppercase'>{row.subscription_type}</StyledTableCell>
-                      <StyledTableCell align="">{timeAgo(row.created_at)}</StyledTableCell>
+                          <StyledTableCell align="left">Status</StyledTableCell>
+                          <StyledTableCell align="left">Plan type</StyledTableCell>
+                          <StyledTableCell align="left">Joining Date</StyledTableCell>
 
-                      <StyledTableCell align="">
+                          {
+                            (type === "silver-members" || type === "gold-members") &&
+                            <StyledTableCell align="left">Date of purchase</StyledTableCell>
+                          }
 
-                        <Button
-                          className="view_btn action-btn d-block"
-                          onClick={() => sendmesaage(row)}
-                        >
-                          <Tooltip title="Send message">
-                            <ForwardToInboxIcon />
-                          </Tooltip>
-                        </Button>
+                          <StyledTableCell align="left">Send message</StyledTableCell>
+                          <StyledTableCell align="left">Marketing Email</StyledTableCell>
+                          <StyledTableCell align="center">Action</StyledTableCell>
+                        </TableRow>
+                      </TableHead>
+
+                      <TableBody>
+                        {currentItems.map((row, key) => (
+                          <StyledTableRow key={row._id}>
+                            <StyledTableCell component="th" scope="row" align="">
+                              {(currentPage - 1) * itemsPerPage + key + 1}
+                            </StyledTableCell>
+                            <StyledTableCell align="">
+                              {row.first_name} {row.last_name}
+                            </StyledTableCell>
+                            <StyledTableCell align="">
+                              {row.email}
+                            </StyledTableCell>
+                            <StyledTableCell align="">
+                              {row.phone}
+                            </StyledTableCell>
+                            <StyledTableCell align="center">{row.location}</StyledTableCell>
+
+                            <StyledTableCell align=""> {row.status} </StyledTableCell>
+                            <StyledTableCell align="" className='text-uppercase'>{row.subscription_type}</StyledTableCell>
+                            <StyledTableCell align="">{timeAgo(row.created_at)}</StyledTableCell>
+                            {
+                              (type === "silver-members" || type === "gold-members") &&
+                              <StyledTableCell align=""> {timeAgo(row.planStartdate)} </StyledTableCell>
+                            }
+                            <StyledTableCell align="">
+
+                              <Button
+                                className="view_btn action-btn d-block"
+                                onClick={() => sendmesaage(row)}
+                              >
+                                <Tooltip title="Send message">
+                                  <ForwardToInboxIcon />
+                                </Tooltip>
+                              </Button>
 
 
-                      </StyledTableCell>
+                            </StyledTableCell>
 
-                      <StyledTableCell align="center">
-                        <Checkbox disabled={!row?.receive_email} checked={row?.receive_email} />
-                      </StyledTableCell>
+                            <StyledTableCell align="center">
+                              <Checkbox disabled={!row?.receive_email} checked={row?.receive_email} />
+                            </StyledTableCell>
 
-                      <StyledTableCell align="left">
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "center",
-                            // alignItems: 'center',
-                            gap: "10px",
-                          }}
-                        >
-                          <div>
-                            <Button
-                              className="edit_btn_global action-btn d-block"
-                              onClick={() => {
-                                startEdit(row);
-                              }}
-                            >
-                              <Tooltip title="Edit">
-                                <ModeEditOutlineIcon />
-                              </Tooltip>
-                            </Button>
-                          </div>
-                          <Button className="btn-success action-btn d-block" onClick={() => { openAsignModal(row) }}>
-                            <Tooltip title="Asign Plan">
-                              <AttachMoneyIcon />
-                            </Tooltip>
-                          </Button>
-                          <Button
-                            className="dlt_btn action-btn d-block"
-                            onClick={(e) => singleDelete(e, row._id)}
-                          >
-                            <Tooltip title="Hold">
-                              <AccessAlarmsIcon />
-                            </Tooltip>
-                          </Button>
+                            <StyledTableCell align="left">
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "row",
+                                  justifyContent: "center",
+                                  // alignItems: 'center',
+                                  gap: "10px",
+                                }}
+                              >
+                                <div>
+                                  <Button
+                                    className="edit_btn_global action-btn d-block"
+                                    onClick={() => {
+                                      startEdit(row);
+                                    }}
+                                  >
+                                    <Tooltip title="Edit">
+                                      <ModeEditOutlineIcon />
+                                    </Tooltip>
+                                  </Button>
+                                </div>
+                                <Button className="btn-success action-btn d-block" onClick={() => { openAsignModal(row) }}>
+                                  <Tooltip title="Asign Plan">
+                                    <AttachMoneyIcon />
+                                  </Tooltip>
+                                </Button>
+                                <Button
+                                  className="dlt_btn action-btn d-block"
+                                  onClick={(e) => singleDelete(e, row._id)}
+                                >
+                                  <Tooltip title="Hold">
+                                    <AccessAlarmsIcon />
+                                  </Tooltip>
+                                </Button>
 
-                          <Button
-                            className="view_btn action-btn d-block"
-                            onClick={() => handleNavigate(row)}
-                          >
-                            <Tooltip title="View Details">
-                              <RemoveRedEyeIcon />
-                            </Tooltip>
-                          </Button>
-                          {/* {row.role === 'Pilot' && (
-                          <Button className="product_view action-btn d-block" onClick={() => handleProductNavigate(row)}>
-                            <Tooltip title="View Marketplace product Details">
-                              <AutoAwesomeMotionIcon />
-                            </Tooltip>
-                          </Button>
-                        )} */}
+                                <Button
+                                  className="view_btn action-btn d-block"
+                                  onClick={() => handleNavigate(row)}
+                                >
+                                  <Tooltip title="View Details">
+                                    <RemoveRedEyeIcon />
+                                  </Tooltip>
+                                </Button>
 
-                          {row.role === "Pilot" && (
-                            <Button
-                              className={` action-btn d-block ${row.preferred ? 'preferd_badge' : 'grey-color'}`}
-                              onClick={() => handleprefferd(row)}
-                            >
-                              <Tooltip title={row.preferred ? "Preferred" : "Not Preferred"}>
-                                <WorkspacePremiumIcon />
-                              </Tooltip>
-                            </Button>
-                          )}
-                          <Button
-                            className="view_btn action-btn d-block"
-                            onClick={() => handlePreview(row)}
-                          >
-                            <Tooltip title="Preview">
-                              <PersonSearchIcon />
-                            </Tooltip>
-                          </Button>
-                        </div>
-                      </StyledTableCell>
-                    </StyledTableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Grid>
-          <Grid container justifyContent={"center"} className="pageInation_box">
-            <Grid item xl={6} lg={8} md={10} sm={12}>
-              <Stack spacing={2}>
-                <Pagination
-                  count={Math.ceil(filteredData.length / itemsPerPage)}
-                  page={currentPage}
-                  onChange={(event, page) => setCurrentPage(page)}
-                  variant="outlined"
-                  shape="rounded"
-                />
-              </Stack>
+                                {row.role === "Pilot" && (
+                                  <Button
+                                    className={` action-btn d-block ${row.preferred ? 'preferd_badge' : 'grey-color'}`}
+                                    onClick={() => handleprefferd(row)}
+                                  >
+                                    <Tooltip title={row.preferred ? "Preferred" : "Not Preferred"}>
+                                      <WorkspacePremiumIcon />
+                                    </Tooltip>
+                                  </Button>
+                                )}
+                                <Button
+                                  className="view_btn action-btn d-block"
+                                  onClick={() => handlePreview(row)}
+                                >
+                                  <Tooltip title="Preview">
+                                    <PersonSearchIcon />
+                                  </Tooltip>
+                                </Button>
+                              </div>
+                            </StyledTableCell>
+                          </StyledTableRow>
+                        ))}
+                      </TableBody>
+
+                    </Table>
+                    :
+                    <div className="my-4 text-center d-block">
+                      <h5>There are no data to display !!</h5>
+                    </div>
+                }
+              </TableContainer>
             </Grid>
-          </Grid>
+            <Grid container justifyContent={"center"} className="pageInation_box">
+              <Grid item xl={6} lg={8} md={10} sm={12}>
+                <Stack spacing={2}>
+                  <Pagination
+                    count={Math.ceil(filteredData.length / itemsPerPage)}
+                    page={currentPage}
+                    onChange={(event, page) => setCurrentPage(page)}
+                    variant="outlined"
+                    shape="rounded"
+                  />
+                </Stack>
+              </Grid>
+            </Grid>
+          </>
+
+
         </>
         )}
       </Grid>
-
 
       <Dialog
         open={open}
@@ -495,7 +533,7 @@ const Usermanagement = () => {
                   aria-labelledby="demo-row-radio-buttons-group-label"
                   name="row-radio-buttons-group"
                   value={planId}
-                  onChange={(e)=>setPlanId(e.target.value)}
+                  onChange={(e) => setPlanId(e.target.value)}
                 >
                   {
                     planList?.map((item, i) => (

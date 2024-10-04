@@ -113,30 +113,6 @@ function Login() {
             setLoading(false)
           }, 2000);
 
-          // if (data.userrecord.role === 'Pilot') {
-          //   setTimeout(() => {
-          //     navigate('/marketplace', { replace: true });
-          //     toastifySuccess('Login Successfully');
-          //     setLoading(false)
-          //   }, 2000);
-          // } else if (data.userrecord.role === 'Poster') {
-          //   localStorage.setItem('popup', true)
-          //   setTimeout(() => {
-          //     navigate('/marketplace', { replace: true });
-          //     localStorage.setItem('popup', true)
-          //     toastifySuccess('Login Successfully');
-          //     setLoading(false)
-          //   }, 2000);
-          // }
-
-
-          // else if (data.userrecord.role === 'Guest') {
-          //   setTimeout(() => {
-          //     navigate('/user/dashboard/default', { replace: true });
-          //     navigate('/user/dashboard/default', { replace: true });
-          //     toastifySuccess('Login Successfully');
-          //   }, 2000);
-          // }
         } else {
           toastifyError(data.message);
           setLoading(false)
@@ -158,7 +134,7 @@ function Login() {
             <div className="user_first">
               <form onSubmit={handlelogin} method='post'>
                 <Row>
-                  <h2>Sign in</h2>
+                  <h1 className='h1_title'>Sign in</h1>
                   <p>New User ?{' '}<span className="hightlight_txt"><Link to="/register">Create an account</Link></span></p>
 
                   <Col md="12" className="mb-3">

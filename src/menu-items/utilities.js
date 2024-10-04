@@ -31,7 +31,6 @@ const utilities = {
       id: 'user-mangement',
       title: 'User Management',
       type: 'collapse',
-      // url: `${config.basename}/usermangement`,
       icon: AttractionsIcon,
       children: [
         {
@@ -43,9 +42,30 @@ const utilities = {
         },
         {
           id: 'user',
-          title: 'Approved Pilot List',
+          title: 'All Approved Pilot List',
           type: 'item',
-          url: `${config.basename}/utils/usermangement`,
+          url: `${config.basename}/utils/usermangement/approved`,
+          breadcrumbs: false
+        },
+        {
+          id: 'free-member',
+          title: 'All Free Members',
+          type: 'item',
+          url: `${config.basename}/utils/usermangement/free-members`,
+          breadcrumbs: false
+        },
+        {
+          id: 'silver-member',
+          title: 'Silver Members',
+          type: 'item',
+          url: `${config.basename}/utils/usermangement/silver-members`,
+          breadcrumbs: false
+        },
+        {
+          id: 'gold-member',
+          title: 'Gold Members',
+          type: 'item',
+          url: `${config.basename}/utils/usermangement/gold-members`,
           breadcrumbs: false
         },
         {
@@ -58,7 +78,7 @@ const utilities = {
        
         {
           id: 'deleted-user',
-          title: 'Hold User',
+          title: 'Rejected Pilot',
           type: 'item',
           url: `${config.basename}/utils/deleted-user`,
           breadcrumbs: false

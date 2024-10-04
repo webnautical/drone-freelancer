@@ -134,21 +134,6 @@ const Marketplace = () => {
     }));
   };
 
-  // const [advertisementList, setAdvertisementList] = useState([])
-
-  // const advertisementFun = async () => {
-  //   try {
-  //     const res = await axiosInstance.get('/admin/getAdvertise')
-  //     if (res?.data?.status == 200) {
-  //       setAdvertisementList(res.data.advertisements)
-  //     } else {
-  //       setAdvertisementList([])
-  //     }
-  //   } catch (error) {
-  //     setAdvertisementList([])
-  //     console.log(error)
-  //   }
-  // };
 
 
   return (
@@ -299,7 +284,7 @@ const Marketplace = () => {
             <Container>
               <Row className="mt-4">
                 <div className='top_header_design d-flex justify-content-between align-items-center'>
-                  <div className='page_tittle'>Marketplace Products</div>
+                  <h1 className='page_tittle'>Marketplace Products</h1>
                   <button className='chat_btn reset_btn' onClick={() => navigate('/user/markeplace/1')}>Post an Item <i className="fa-solid fa-plus"></i></button>
                 </div>
               </Row>

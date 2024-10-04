@@ -304,9 +304,9 @@ const Pilotmap = () => {
             <Row>
               <Col md={5}>
                 <div className="find_box">
-                  <h2>
+                  <h1 className='h1_title'>
                     <img src={Blackdrone} alt="logo" style={{ maxWidth: '', maxHeight: '' }} /> Find a local pilot
-                  </h2>
+                  </h1>
                   <div dangerouslySetInnerHTML={{ __html: getPageData?.content }} />
                   <div className="search_box_pilot">
                     <Row>

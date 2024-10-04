@@ -32,7 +32,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
         border: 0
     }
 }));
-import { generateSlug, toastifyError, toastifySuccess } from "Utility/Utility"
+import { toastifyError, toastifySuccess } from "Utility/Utility"
 import Loading from 'Utility/Loading';
 import { timeAgo } from 'Utility/Date';
 import ComponentSkeleton from 'pages/components-overview/ComponentSkeleton';
@@ -96,7 +96,7 @@ const MetaListing = () => {
     }, [updData])
     const handleChange = (e) => {
         if (e.target.name === 'meta_title') {
-            setValue({ ...value, 'meta_title': e.target.value, 'slug': generateSlug(e.target.value) })
+            setValue({ ...value, 'meta_title': e.target.value })
         } else {
             setValue({
                 ...value,
@@ -132,11 +132,6 @@ const MetaListing = () => {
                     <div>
                         <h2>Meta Tags</h2>
                     </div>
-                    {/* <div className="input-box">
-                        <Button className="global_dashbtn text-end me-3" onClick={() => setPage(!page)}>
-                            Create Meta Tags
-                        </Button>
-                    </div> */}
                 </div>
 
                 <Grid container spacing={3}>
@@ -253,7 +248,6 @@ const MetaListing = () => {
                                                                 placeholder='Write Slug ...'
                                                                 name="slug"
                                                                 value={value.slug}
-                                                                onChange={handleChange}
                                                                 disabled
                                                             />
                                                         </FormControl>

@@ -50,7 +50,7 @@ const Temscondition = () => {
             <Row className="justify-content-center">
               <Col md="8" className="text-center">
                 <div className="bread_heading">
-                  <h2>Term & Conditions</h2>
+                  <h1 className='h1_title'>Term & Conditions</h1>
                   <ul>
                     <li>Home</li>
                     <img src={Whitedrone} alt="logo" style={{ maxWidth: '', maxHeight: '' }} />

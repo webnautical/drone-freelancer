@@ -26,7 +26,7 @@ const MarketPlaceDetails = () => {
             </Col>
             <Col md="6">
               <div className="product_right_side_details">
-                <h2>{productData?.productdata?.title}</h2>
+                <h1 className='h1_title'>{productData?.productdata?.title}</h1>
                 <div>
                   <span className="market_place_location">
                     <LocationOnIcon />

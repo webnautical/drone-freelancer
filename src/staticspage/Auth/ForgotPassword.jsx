@@ -145,7 +145,7 @@ const ForgotPassword = () => {
                 {page === 'emailVerify' ? (
                   <>
                     <Row>
-                      <h2>Forgot Password</h2>
+                      <h1 className='h1_title mb-5'>Forgot Password</h1>
                       <Col md="12" className="mb-3">
                         <div className="group  error">
                           <input

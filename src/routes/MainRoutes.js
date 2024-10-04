@@ -122,20 +122,16 @@ const MainRoutes = {
  
     {
       path: 'utils',
- 
       children: [
         {
-          path: 'usermangement',
- 
+          path: 'usermangement/:type',
           element: <Usermangement />
         },
         {
           path: 'posterlist',
- 
           element: <Posterlist />
         },
- 
-      ]  //
+      ]
     },
  
     {

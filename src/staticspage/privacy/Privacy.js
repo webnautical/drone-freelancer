@@ -52,7 +52,7 @@ const Privacy = () => {
             <Row className="justify-content-center">
               <Col md="8" className="text-center">
                 <div className="bread_heading">
-                  <h2>Privacy & Cookies Policy</h2>
+                  <h1 className='h1_title'>Privacy & Cookies Policy</h1>
                   <ul>
                     <li>Home</li>
                     <img src={Whitedrone} alt="logo" style={{ maxWidth: '', maxHeight: '' }} />

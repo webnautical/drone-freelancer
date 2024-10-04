@@ -187,7 +187,6 @@ const Home = () => {
  
   const navigatePage = (page) => {
     const text = page.toLowerCase().replace(/\s+/g, '-');
-    console.log(text)
     if (text == 'get-a-quote!') {
       getQuetesCall()
     } else if(text == 'business-employment-portal'){
@@ -230,14 +229,7 @@ const Home = () => {
         <Container>
           <>
             <div className="global_heading" data-aos="fade-up" data-aos-duration="1000">
-              {/* <h2>
-                {staticdata[0]?.getstartedsection?.tital}
-              </h2> */}
               <div dangerouslySetInnerHTML={{ __html: staticdata[0]?.getstartedsection?.tital }} />
- 
-              {/* <div className="pos_img">
-                <img src={Posimg} alt="logo" style={{ maxWidth: '', maxHeight: '' }} />
-              </div> */}
             </div>
             <Row className="get_q">
               {staticdata[0]?.getstartedsection?.quates?.map((row,i) => (

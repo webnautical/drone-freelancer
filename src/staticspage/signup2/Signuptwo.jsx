@@ -178,7 +178,7 @@ const Signuptwo = () => {
                 page ?
                   <Row>
                     <p>Step 2 of 2</p>
-                    <h2>Create an account</h2>
+                    <h1 className='h1_title mb-5'>Create an account</h1>
                     <Col md="6" className="mb-3">
                       <div className="group  error">
                         <input

@@ -49,33 +49,7 @@ const Howitwork = () => {
   return (
     <>
       <div className="faq_page">
-        {/* <section
-          className="breacrumb"
-          style={{
-            backgroundImage: `url(${staticdata?.image})`,
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            padding: '195px 0 120px'
-          }}
-        >
-          <Container>
-            <Row className="justify-content-center">
-              <Col md="6" className="text-center">
-                <div className="bread_heading">
-                  <h2>How It works</h2>
-                  <ul>
-                    <li>Home</li>
-                    <img src={Whitedrone} alt="logo" style={{ maxWidth: '', maxHeight: '' }} />
-                    <li>How it Works</li>
-                  </ul>
-                </div>
-              </Col>
-            </Row>
-          </Container>
-        </section> */}
         <Breacrumb />
-
-
         <section className="faq how_we_work">
           <Container>
             {

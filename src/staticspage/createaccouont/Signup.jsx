@@ -145,7 +145,7 @@ const Signup = () => {
             <div className="user_first">
               <Row>
                 <p>Step 1 of 2</p>
-                <h2>Create an account </h2>
+                <h1 className='h1_title mb-5'>Create an account </h1>
 
                 <Col md="12" className="mb-3">
                   <div className="group  error pb-0 mb-2">

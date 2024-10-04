@@ -5,6 +5,15 @@
   padding: 0px;
 }
 
+.breacrumb h1{ color: white;}
+
+
+.h1_title{
+  color: #323232; font-size: 32px; font-weight: 600;
+}
+
+
+
 
 ul li{ font-weight: 500;}
 ol li{ font-weight: 500;}
@@ -1240,7 +1249,7 @@ header .navbar-collapse {
   align-items: center;
 }
 
-.find_box h2 {
+.find_box h1 {
   font-size: 24px;
   color: #3a3a3a;
   border-bottom: 1px solid #d9d9d9;
@@ -1357,7 +1366,7 @@ header .navbar-collapse {
   font-weight: 600;
 }
 
-.product_right_side_details h2 {
+.product_right_side_details h1 {
   font-size: 28px;
   font-weight: 600;
 }
@@ -3126,6 +3135,11 @@ gap: 20px;
 
 
 @media only screen and (max-width: 991px) {
+
+  .h1_title{
+    color: #323232; font-size: 22px; font-weight: 600;
+  }
+  
 
   .main_rev_box {
     margin-top: 35px;

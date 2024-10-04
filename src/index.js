@@ -80,6 +80,7 @@ import PilotList from 'staticspage/Pilotmap/PilotList';
 
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+// import NotFound from 'Utility/NotFound';
 // const stripePromise = loadStripe('pk_test_51PPi6VKc8CNsxNnE0tXJjUGr8pPvuSzncsDVMjyzrXyguJK9prbJdKBfyvdWPNxRgNgYidtr2chDkRejRKZFN8F900yJb3JEhE');
 const stripePromise = loadStripe('pk_live_51PPi6VKc8CNsxNnEKl4sXhOlDWoWMkxk3dTzolMRrD61VAXVOX3JER5HZORGmEtmyTteHIHk8QwIMf3E0v6rczZB00COjSh9DL');
 
@@ -88,7 +89,6 @@ const container = document.getElementById('root');
 const root = createRoot(container);
 
 root.render(
-  // <StrictMode>
   <BrowserRouter>
     <LoadScript googleMapsApiKey="AIzaSyCX8PtZWvDsQC0qKsVvJ9vFj6rfo-OmHWM" libraries={libraries}>
 
@@ -126,14 +126,14 @@ root.render(
             <Route path="/marketplace" element={<Front cmp={Marketplace} />} />
             <Route path="/contact-us" element={<Front cmp={Contactus} />} />
 
-            {/* <Route path="/pilot-directory/:state" element={<Front cmp={PilotList} />} /> */}
             <Route path="/pilot-directory/:state" element={<Front cmp={PilotList} />} />
             <Route path="/pilot-directory" element={<Front cmp={() => <PilotList />} />} />
             <Route path="/marketplace-details" element={<Front cmp={MarketPlaceDetails} />} />
-            <Route path="/pricing" element={<Pricing />} />
             <Route path="/animal-rescue" element={<Front cmp={AnimalRescue} />} />
             <Route path="/page" element={<Front cmp={FormIndex} />} />
             <Route path="/forgot" element={<ForgotPassword />} />
+            {/* <Route path="*" element={<NotFound />} /> */}
+
           </Routes>
           <CookiesPopup />
           <ToastContainer />
@@ -142,7 +142,6 @@ root.render(
 
     </LoadScript>
   </BrowserRouter>
-  // </StrictMode>
 );
 
 reportWebVitals();
