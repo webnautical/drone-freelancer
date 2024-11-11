@@ -54,7 +54,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 import { toastifyError, toastifySuccess } from "Utility/Utility";
-import { timeAgo } from "Utility/Date";
+import {  timeAgo } from "Utility/Date";
 import { Checkbox, FormLabel, Radio, RadioGroup } from "../../node_modules/@mui/material/index";
 import { axiosInstance } from "Utility/Api";
 import { useParams } from "../../node_modules/react-router-dom/dist/index";
@@ -313,6 +313,8 @@ const Usermanagement = () => {
     }
   }
 
+  console.log("filteredData", filteredData)
+
   return (
     <ComponentSkeleton>
       <div className="dahbard_table top_tab_bar">
@@ -355,23 +357,39 @@ const Usermanagement = () => {
                       <TableHead>
                         <TableRow>
                           <StyledTableCell align="left">S.No.</StyledTableCell>
+
                           <StyledTableCell align="left">Name</StyledTableCell>
                           <StyledTableCell align="left">Email</StyledTableCell>
-                          <StyledTableCell align="left">Phone</StyledTableCell>
-                          <StyledTableCell align="left">Location</StyledTableCell>
-
-                          <StyledTableCell align="left">Status</StyledTableCell>
-                          <StyledTableCell align="left">Plan type</StyledTableCell>
-                          <StyledTableCell align="left">Joining Date</StyledTableCell>
 
                           {
-                            (type === "silver-members" || type === "gold-members") &&
-                            <StyledTableCell align="left">Date of purchase</StyledTableCell>
+                            (type === "expired") ?
+                              <>
+                                <StyledTableCell align="left">Expired Plan</StyledTableCell>
+                                <StyledTableCell align="left">Plan Expire Date</StyledTableCell>
+                              </>
+                              :
+                              <>
+                                <StyledTableCell align="left">Phone</StyledTableCell>
+                                <StyledTableCell align="left">Location</StyledTableCell>
+
+                                <StyledTableCell align="left">Status</StyledTableCell>
+                                <StyledTableCell align="left">Plan type</StyledTableCell>
+                                <StyledTableCell align="left">Joining Date</StyledTableCell>
+
+                                {
+                                  (type === "silver-members" || type === "gold-members") &&
+                                  <>
+                                    <StyledTableCell align="left">Plan Purchase Date</StyledTableCell>
+                                    <StyledTableCell align="left">Plan Expire Date</StyledTableCell>
+                                  </>
+                                }
+
+                                <StyledTableCell align="left">Send message</StyledTableCell>
+                                <StyledTableCell align="left">Marketing Email</StyledTableCell>
+                                <StyledTableCell align="center">Action</StyledTableCell>
+                              </>
                           }
 
-                          <StyledTableCell align="left">Send message</StyledTableCell>
-                          <StyledTableCell align="left">Marketing Email</StyledTableCell>
-                          <StyledTableCell align="center">Action</StyledTableCell>
                         </TableRow>
                       </TableHead>
 
@@ -381,107 +399,119 @@ const Usermanagement = () => {
                             <StyledTableCell component="th" scope="row" align="">
                               {(currentPage - 1) * itemsPerPage + key + 1}
                             </StyledTableCell>
-                            <StyledTableCell align="">
-                              {row.first_name} {row.last_name}
-                            </StyledTableCell>
-                            <StyledTableCell align="">
-                              {row.email}
-                            </StyledTableCell>
-                            <StyledTableCell align="">
-                              {row.phone}
-                            </StyledTableCell>
-                            <StyledTableCell align="center">{row.location}</StyledTableCell>
-
-                            <StyledTableCell align=""> {row.status} </StyledTableCell>
-                            <StyledTableCell align="" className='text-uppercase'>{row.subscription_type}</StyledTableCell>
-                            <StyledTableCell align="">{timeAgo(row.created_at)}</StyledTableCell>
                             {
-                              (type === "silver-members" || type === "gold-members") &&
-                              <StyledTableCell align=""> {timeAgo(row.planStartdate)} </StyledTableCell>
+                              (type === "expired") ?
+                                <StyledTableCell align="">{row.name}</StyledTableCell>
+                                :
+                                <StyledTableCell align="">{row.first_name} {row.last_name}</StyledTableCell>
                             }
-                            <StyledTableCell align="">
+                            <StyledTableCell align="">{row.email}</StyledTableCell>
 
-                              <Button
-                                className="view_btn action-btn d-block"
-                                onClick={() => sendmesaage(row)}
-                              >
-                                <Tooltip title="Send message">
-                                  <ForwardToInboxIcon />
-                                </Tooltip>
-                              </Button>
+                            {
+                              (type === "expired") ?
+                                <>
+                                  <StyledTableCell align="left">{row.expired_plan}</StyledTableCell>
+                                  <StyledTableCell align="left">{timeAgo(row.planExpiredate)}</StyledTableCell>
+                                </>
+                                :
+                                <>
+                                  <StyledTableCell align="">{row.phone}</StyledTableCell>
+                                  <StyledTableCell align="center">{row.location}</StyledTableCell>
+
+                                  <StyledTableCell align=""> {row.status} </StyledTableCell>
+                                  <StyledTableCell align="" className='text-uppercase'>{row.subscription_type}</StyledTableCell>
+                                  <StyledTableCell align="">{timeAgo(row.created_at)}</StyledTableCell>
+                                  {
+                                    (type === "silver-members" || type === "gold-members") &&
+                                    <>
+                                      <StyledTableCell align=""> {timeAgo(row.planStartdate)} </StyledTableCell>
+                                      <StyledTableCell align=""> {row.planExpiredate?.split(" GMT")[0]} </StyledTableCell>
+                                    </>
+                                  }
+                                  <StyledTableCell align="">
+                                    <Button
+                                      className="view_btn action-btn d-block"
+                                      onClick={() => sendmesaage(row)}
+                                    >
+                                      <Tooltip title="Send message">
+                                        <ForwardToInboxIcon />
+                                      </Tooltip>
+                                    </Button>
+                                  </StyledTableCell>
+
+                                  <StyledTableCell align="center">
+                                    <Checkbox disabled={!row?.receive_email} checked={row?.receive_email} />
+                                  </StyledTableCell>
+
+                                  <StyledTableCell align="left">
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        justifyContent: "center",
+                                        // alignItems: 'center',
+                                        gap: "10px",
+                                      }}
+                                    >
+                                      <div>
+                                        <Button
+                                          className="edit_btn_global action-btn d-block"
+                                          onClick={() => {
+                                            startEdit(row);
+                                          }}
+                                        >
+                                          <Tooltip title="Edit">
+                                            <ModeEditOutlineIcon />
+                                          </Tooltip>
+                                        </Button>
+                                      </div>
+                                      <Button className="btn-success action-btn d-block" onClick={() => { openAsignModal(row) }}>
+                                        <Tooltip title="Asign Plan">
+                                          <AttachMoneyIcon />
+                                        </Tooltip>
+                                      </Button>
+                                      <Button
+                                        className="dlt_btn action-btn d-block"
+                                        onClick={(e) => singleDelete(e, row._id)}
+                                      >
+                                        <Tooltip title="Hold">
+                                          <AccessAlarmsIcon />
+                                        </Tooltip>
+                                      </Button>
+
+                                      <Button
+                                        className="view_btn action-btn d-block"
+                                        onClick={() => handleNavigate(row)}
+                                      >
+                                        <Tooltip title="View Details">
+                                          <RemoveRedEyeIcon />
+                                        </Tooltip>
+                                      </Button>
+
+                                      {row.role === "Pilot" && (
+                                        <Button
+                                          className={` action-btn d-block ${row.preferred ? 'preferd_badge' : 'grey-color'}`}
+                                          onClick={() => handleprefferd(row)}
+                                        >
+                                          <Tooltip title={row.preferred ? "Preferred" : "Not Preferred"}>
+                                            <WorkspacePremiumIcon />
+                                          </Tooltip>
+                                        </Button>
+                                      )}
+                                      <Button
+                                        className="view_btn action-btn d-block"
+                                        onClick={() => handlePreview(row)}
+                                      >
+                                        <Tooltip title="Preview">
+                                          <PersonSearchIcon />
+                                        </Tooltip>
+                                      </Button>
+                                    </div>
+                                  </StyledTableCell>
+                                </>
+                            }
 
 
-                            </StyledTableCell>
-
-                            <StyledTableCell align="center">
-                              <Checkbox disabled={!row?.receive_email} checked={row?.receive_email} />
-                            </StyledTableCell>
-
-                            <StyledTableCell align="left">
-                              <div
-                                style={{
-                                  display: "flex",
-                                  flexDirection: "row",
-                                  justifyContent: "center",
-                                  // alignItems: 'center',
-                                  gap: "10px",
-                                }}
-                              >
-                                <div>
-                                  <Button
-                                    className="edit_btn_global action-btn d-block"
-                                    onClick={() => {
-                                      startEdit(row);
-                                    }}
-                                  >
-                                    <Tooltip title="Edit">
-                                      <ModeEditOutlineIcon />
-                                    </Tooltip>
-                                  </Button>
-                                </div>
-                                <Button className="btn-success action-btn d-block" onClick={() => { openAsignModal(row) }}>
-                                  <Tooltip title="Asign Plan">
-                                    <AttachMoneyIcon />
-                                  </Tooltip>
-                                </Button>
-                                <Button
-                                  className="dlt_btn action-btn d-block"
-                                  onClick={(e) => singleDelete(e, row._id)}
-                                >
-                                  <Tooltip title="Hold">
-                                    <AccessAlarmsIcon />
-                                  </Tooltip>
-                                </Button>
-
-                                <Button
-                                  className="view_btn action-btn d-block"
-                                  onClick={() => handleNavigate(row)}
-                                >
-                                  <Tooltip title="View Details">
-                                    <RemoveRedEyeIcon />
-                                  </Tooltip>
-                                </Button>
-
-                                {row.role === "Pilot" && (
-                                  <Button
-                                    className={` action-btn d-block ${row.preferred ? 'preferd_badge' : 'grey-color'}`}
-                                    onClick={() => handleprefferd(row)}
-                                  >
-                                    <Tooltip title={row.preferred ? "Preferred" : "Not Preferred"}>
-                                      <WorkspacePremiumIcon />
-                                    </Tooltip>
-                                  </Button>
-                                )}
-                                <Button
-                                  className="view_btn action-btn d-block"
-                                  onClick={() => handlePreview(row)}
-                                >
-                                  <Tooltip title="Preview">
-                                    <PersonSearchIcon />
-                                  </Tooltip>
-                                </Button>
-                              </div>
-                            </StyledTableCell>
                           </StyledTableRow>
                         ))}
                       </TableBody>

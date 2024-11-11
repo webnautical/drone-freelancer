@@ -4,6 +4,7 @@ import Profile from '../assets/images/defaultuser.png';
 import { utils, writeFileXLSX } from 'xlsx';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Box} from '@mui/material';
+import config from 'config';
 // import { axiosInstance } from './Api';
 export const libraries = ['places'];
 
@@ -136,3 +137,43 @@ export const LoadingDashBTN = () => {
 export const generateSlug = (str) => {
   return str.toLowerCase().replace(/[\s_]/g, '-').replace(/[^\w-]+/g, '');
 };
+
+export const LOGIN_AND_GET_INFO_BY_TOKEN_FROM_IOS_AND_ANDROID_APP = async (key) => {
+  try {
+    sessionStorage.clear()
+    const res = await fetch(`${config.url}/user/getUserdatas`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${key}` }
+    });
+    const resultdata = await res.json();
+    if (resultdata.status == 200) {
+      const userInfo = resultdata?.getUserdata;
+      localStorage.setItem('login_id', userInfo._id);
+      localStorage.setItem('jwt', key);
+      localStorage.setItem('user_type', userInfo.role);
+      localStorage.setItem('loginname', userInfo?.first_name);
+      localStorage.setItem('loginstatus', '1');
+      localStorage.setItem('img', userInfo?.image);
+      const dataParam = {
+        login_id: userInfo._id,
+        jwt: key,
+        user_type: userInfo.role,
+        loginname: userInfo.first_name,
+        loginstatus: '1',
+        img: userInfo?.image,
+        subcription_id: userInfo?.subcription_id,
+        subcription_type: userInfo?.subscription_type
+      };
+      encryptLocalStorageData('web-secret', dataParam, 'DoNotTryToAccess');
+      sessionStorage.setItem("hasCalledApi", "true");
+      window.location.reload()
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const  closeWindow = () => {
+  window.open('', '_self');
+  window.close();
+}

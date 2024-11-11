@@ -128,9 +128,15 @@ const ProfileDetails = () => {
     navigate('/marketplace-details', { state: { data: params } });
   };
   const youtubeID = (url) => {
+    const videoURLId = url.match(/(?:youtu\.be\/|youtube\.com\/(?:[^/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=))([\w-]{11})/);
+    if (videoURLId && videoURLId[1]) {
+      return videoURLId[1];
+    }
+
     const urlParams = new URLSearchParams(new URL(url).search);
     const videoId = urlParams.get('v');
     return videoId;
+
   };
   const [value, setValue] = React.useState('1');
   const handleChange = (event, newValue) => {

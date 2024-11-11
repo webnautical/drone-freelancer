@@ -43,6 +43,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import TwitterIcon from '@mui/icons-material/Twitter';
 // import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
+// import DeleteProfileButton from 'Utility/DeleteProfileButton';
 // import config from 'config';
 const DashboardDefault = () => {
   const [value, setValue] = React.useState('1');
@@ -116,6 +117,9 @@ const DashboardDefault = () => {
       getReview();
     }
   }, [jwt]);
+
+  console.log("pilotInfo", pilotInfo)
+  console.log("qualificationData", qualificationData)
 
   const [list, setList] = useState([]);
   const getList = async () => {
@@ -437,6 +441,9 @@ const DashboardDefault = () => {
                             {userInfo?.getacceptedjob && `${userInfo?.getacceptedjob['0']?.location} `}
                           </span>
                         </div>
+                        {/* <div className='mt-2'>
+                          <DeleteProfileButton />
+                        </div> */}
                       </>
                     ) : (
                       <>
@@ -497,11 +504,12 @@ const DashboardDefault = () => {
                         </Dialog>
 
                         {/* onClick={()=>navigate(`/profile-details/${data.element._id}`, { state: { data } })} */}
- 
-                        <Link className="dash_edit_btn global_btn"  to={'/user/profileedit'} style={{textDecoration : 'none'}}>
+
+                        <Link className="dash_edit_btn global_btn" to={'/user/profileedit'} style={{ textDecoration: 'none' }}>
                           <EditIcon />
-                            Edit
+                          Edit
                         </Link>
+
                       </div>
                     </>
                   )}
@@ -533,6 +541,7 @@ const DashboardDefault = () => {
                         {userInfo?.getacceptedjob && `${userInfo?.getacceptedjob['0']?.short_description} `}
                       </p>
                     </div>
+
                   </>
                 )}
               </Grid>
@@ -1134,7 +1143,7 @@ const DashboardDefault = () => {
                 <div className="pendind_details_box top_box">
                   <div className="pending_status">
                     <div className="pending_status_name">Purchase subscription Plan</div>
-                    <button className="pending_btn" onClick={()=>navigate('/user/plans')}>Buy Now</button>
+                    <button className="pending_btn" onClick={() => navigate('/user/plans')}>Buy Now</button>
                   </div>
                   <p className="mt-3">Please purchase a subscription plan to access all features.</p>
                   <div className="tend">
@@ -1207,8 +1216,7 @@ const DashboardDefault = () => {
                     <button className="pending_btn">Pending</button>
                   </div>
                   <p>
-                    Thank you for uploading your qualifications. Your submission is now awaiting approval from our admin team. We&apos;ll
-                    notify you as soon as it&apos;s reviewed and processed.
+                    To be visible to clients and approved, you must provide your license certificate (at least RPA), location, and phone number. Your submission is currently under review by our admin team. We will notify you as soon as your submission is processed.
                   </p>
                   <p className="no_data">
                     <div className="tend">
@@ -1219,7 +1227,29 @@ const DashboardDefault = () => {
                     </div>
                   </p>
                 </div>
-              ) : pilotInfo?.qualification_id == '' && qualificationData?.qualification == '' ? (
+              ) : pilotInfo?.status == 'Inactive' && pilotInfo?.qualification_id == '' ? (
+                <div className="pendind_details_box top_box">
+                  <div className="pending_status">
+                    <div className="pending_status_name">
+                      <p className="" style={{ fontWeight: 'bold' }}>
+                        Qualification
+                      </p>
+                    </div>
+                    <button className="pending_btn">Pending</button>
+                  </div>
+                  <p>
+                    To be visible to clients and approved, you must provide your license certificate (at least RPA), location, and phone number. Your submission is currently under review by our admin team. We will notify you as soon as your submission is processed.
+                  </p>
+                  <p className="no_data">
+                    <div className="tend">
+                      <button onClick={() => profileEditPage(0)} className="global_fade_btn">
+                        Complete your Profile
+                        <KeyboardArrowRightIcon />
+                      </button>
+                    </div>
+                  </p>
+                </div>
+              ) : pilotInfo?.qualification_id == '' && pilotInfo?.status == 'Active' ? (
                 <div className="pendind_details_box top_box">
                   <div className="pending_status">
                     <div className="pending_status_name">
@@ -1229,7 +1259,7 @@ const DashboardDefault = () => {
                     </div>
                     <button className="pending_btn">Upload Now</button>
                   </div>
-                  <p className="mt-3">New users, please upload qualifications to complete your profile for personalized service.</p>
+                  <p className="mt-3">Please upload qualifications to complete your profile for personalized service.</p>
                   <p className="no_data">
                     <div className="tend">
                       <button onClick={() => profileEditPage(0)} className="global_fade_btn">

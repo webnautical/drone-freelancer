@@ -77,6 +77,7 @@ const Header = () => {
   const pageRedirect = (url) => {
     if (url == 'logout') {
       localStorage.clear();
+      sessionStorage.clear()
       navigate('/');
     } else {
       if (localStorage.getItem('user_type') === 'admin') {
@@ -99,9 +100,6 @@ const Header = () => {
     }
   };
 
-  console.log(path
-
-  )
 
   return (
     <>

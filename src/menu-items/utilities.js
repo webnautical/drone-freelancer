@@ -69,6 +69,13 @@ const utilities = {
           breadcrumbs: false
         },
         {
+          id: 'expired',
+          title: 'Expire Members',
+          type: 'item',
+          url: `${config.basename}/utils/usermangement/expired`,
+          breadcrumbs: false
+        },
+        {
           id: 'poster',
           title: 'Poster List',
           type: 'item',

@@ -1,13 +1,13 @@
 
 import * as React from 'react';
 import { Grid, Typography } from '@mui/material';
- 
+
 import MailIcon from '@mui/icons-material/Mail';
 import CallIcon from '@mui/icons-material/Call';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
- 
+
 import MenuItem from '@mui/material/MenuItem';
- 
+
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import '../../assets/css/styleposter.css';
@@ -23,8 +23,9 @@ import Stack from '@mui/material/Stack';
 import ThereAreNoData from 'Utility/ThereAreNoData';
 import { axiosInstance } from 'Utility/Api';
 import { getAllLocatData } from 'Utility/Utility';
+// import DeleteProfileButton from 'Utility/DeleteProfileButton';
 // ==============================|| DASHBOARD - DEFAULT ||============================== //
- 
+
 const DashboardDefault = () => {
   const navigate = useNavigate();
   const [postAJobList, setPostAJob] = React.useState([]);
@@ -53,7 +54,7 @@ const DashboardDefault = () => {
       setLoading(false);
     }
   };
- 
+
   const getProductCount = async () => {
     setCountLoad(true);
     try {
@@ -70,7 +71,7 @@ const DashboardDefault = () => {
       setProductCount({})
     }
   }
- 
+
   const getProfileInfo = async () => {
     setLoading(true);
     try {
@@ -94,14 +95,14 @@ const DashboardDefault = () => {
     getReview()
     getProductCount()
   }, []);
- 
+
   const updateProfile = () => {
     navigate('/user/poster-update-profile', { state: { posterInfo } });
   };
   const goToViewDetails = (data) => {
     navigate('/user/jobs-details', { state: { data } });
   };
- 
+
   const handleChangeFilter = (type) => {
     setSort(type)
     if (type == "pendding") {
@@ -138,7 +139,7 @@ const DashboardDefault = () => {
       console.log(error)
     }
   }
- 
+
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
       <Grid item xs={12} sx={{ mt: 3.25 }}>
@@ -146,7 +147,7 @@ const DashboardDefault = () => {
           Dashboard
         </Typography>
       </Grid>
- 
+
       <Grid className="pt-4" item xl={8} lg={8} order={{ xs: 2, md: 2, xl: 1, lg: 1 }}>
         {countLoad ? (
           <Grid container spacing={2} className="count_main">
@@ -191,7 +192,7 @@ const DashboardDefault = () => {
             </Grid>
           </Grid>
         )}
- 
+
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <div className="posted_job_list">
@@ -211,41 +212,41 @@ const DashboardDefault = () => {
               </div>
               <div className="post_listing_box">
                 {loading ? (
-                <div>
-                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className="mb-3">
-              <Skeleton animation="wave" style={{ width: '40%', height: '40px', backgroundColor: 'lightgray', borderRadius: '4px' }} />
-              <Skeleton className="mt-2" animation="wave" style={{ width: '70%', height: '20px', backgroundColor: '#e3e3e3', borderRadius: '4px' }} />
-              <Skeleton animation="wave" style={{ width: '70%', height: '20px', backgroundColor: '#e3e3e3', borderRadius: '4px' }} />
-              <div className='d-flex justify-content-between'>
-                <Skeleton className="mt-2" animation="wave" style={{ width: '20%', height: '20px', backgroundColor: '#e3e3e3', borderRadius: '4px' }} />
-                <Skeleton className="mt-2" animation="wave" style={{ width: '20%', height: '20px', backgroundColor: '#e3e3e3', borderRadius: '4px' }} />
-              </div>
- 
-            </Grid>
- 
-            <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className="mb-3">
-              <Skeleton animation="wave" style={{ width: '40%', height: '40px', backgroundColor: 'lightgray', borderRadius: '4px' }} />
-              <Skeleton className="mt-2" animation="wave" style={{ width: '70%', height: '20px', backgroundColor: '#e3e3e3', borderRadius: '4px' }} />
-              <Skeleton animation="wave" style={{ width: '70%', height: '20px', backgroundColor: '#e3e3e3', borderRadius: '4px' }} />
-              <div className='d-flex justify-content-between'>
-                <Skeleton className="mt-2" animation="wave" style={{ width: '20%', height: '20px', backgroundColor: '#e3e3e3', borderRadius: '4px' }} />
-                <Skeleton className="mt-2" animation="wave" style={{ width: '20%', height: '20px', backgroundColor: '#e3e3e3', borderRadius: '4px' }} />
-              </div>
- 
-            </Grid>
- 
-            <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className="mb-3">
-              <Skeleton animation="wave" style={{ width: '40%', height: '40px', backgroundColor: 'lightgray', borderRadius: '4px' }} />
-              <Skeleton className="mt-2" animation="wave" style={{ width: '70%', height: '20px', backgroundColor: '#e3e3e3', borderRadius: '4px' }} />
-              <Skeleton animation="wave" style={{ width: '70%', height: '20px', backgroundColor: '#e3e3e3', borderRadius: '4px' }} />
-              <div className='d-flex justify-content-between'>
-                <Skeleton className="mt-2" animation="wave" style={{ width: '20%', height: '20px', backgroundColor: '#e3e3e3', borderRadius: '4px' }} />
-                <Skeleton className="mt-2" animation="wave" style={{ width: '20%', height: '20px', backgroundColor: '#e3e3e3', borderRadius: '4px' }} />
-              </div>
- 
-            </Grid>
- 
-           
+                  <div>
+                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className="mb-3">
+                      <Skeleton animation="wave" style={{ width: '40%', height: '40px', backgroundColor: 'lightgray', borderRadius: '4px' }} />
+                      <Skeleton className="mt-2" animation="wave" style={{ width: '70%', height: '20px', backgroundColor: '#e3e3e3', borderRadius: '4px' }} />
+                      <Skeleton animation="wave" style={{ width: '70%', height: '20px', backgroundColor: '#e3e3e3', borderRadius: '4px' }} />
+                      <div className='d-flex justify-content-between'>
+                        <Skeleton className="mt-2" animation="wave" style={{ width: '20%', height: '20px', backgroundColor: '#e3e3e3', borderRadius: '4px' }} />
+                        <Skeleton className="mt-2" animation="wave" style={{ width: '20%', height: '20px', backgroundColor: '#e3e3e3', borderRadius: '4px' }} />
+                      </div>
+
+                    </Grid>
+
+                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className="mb-3">
+                      <Skeleton animation="wave" style={{ width: '40%', height: '40px', backgroundColor: 'lightgray', borderRadius: '4px' }} />
+                      <Skeleton className="mt-2" animation="wave" style={{ width: '70%', height: '20px', backgroundColor: '#e3e3e3', borderRadius: '4px' }} />
+                      <Skeleton animation="wave" style={{ width: '70%', height: '20px', backgroundColor: '#e3e3e3', borderRadius: '4px' }} />
+                      <div className='d-flex justify-content-between'>
+                        <Skeleton className="mt-2" animation="wave" style={{ width: '20%', height: '20px', backgroundColor: '#e3e3e3', borderRadius: '4px' }} />
+                        <Skeleton className="mt-2" animation="wave" style={{ width: '20%', height: '20px', backgroundColor: '#e3e3e3', borderRadius: '4px' }} />
+                      </div>
+
+                    </Grid>
+
+                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className="mb-3">
+                      <Skeleton animation="wave" style={{ width: '40%', height: '40px', backgroundColor: 'lightgray', borderRadius: '4px' }} />
+                      <Skeleton className="mt-2" animation="wave" style={{ width: '70%', height: '20px', backgroundColor: '#e3e3e3', borderRadius: '4px' }} />
+                      <Skeleton animation="wave" style={{ width: '70%', height: '20px', backgroundColor: '#e3e3e3', borderRadius: '4px' }} />
+                      <div className='d-flex justify-content-between'>
+                        <Skeleton className="mt-2" animation="wave" style={{ width: '20%', height: '20px', backgroundColor: '#e3e3e3', borderRadius: '4px' }} />
+                        <Skeleton className="mt-2" animation="wave" style={{ width: '20%', height: '20px', backgroundColor: '#e3e3e3', borderRadius: '4px' }} />
+                      </div>
+
+                    </Grid>
+
+
                   </div>
                 ) : (
                   filter.length > 0 ?
@@ -288,17 +289,17 @@ const DashboardDefault = () => {
           </Grid>
         </Grid>
       </Grid>
- 
+
       <Grid className="pt-4" item xl={4} lg={4} md={12} xs={12} order={{ xs: 1, md: 1, xl: 2, lg: 1 }}>
         <Grid item xs={12} sx={{ mb: 3.25 }}>
           <div className="profile_poster_box details_count_box top_box">
             {loading ? (
-           <div className='d-flex' style={{ gap: '10px' }}>
-             <div> <Skeleton variant="circular" width={84} height={84} /></div>
-               <div><Skeleton className="mt-2" variant="rectangular" width={170}  />
-               <Skeleton className="mt-2" variant="rectangular" width={150}  />
-               <Skeleton className="mt-2" variant="rectangular" width={40}  /></div>
-           </div>
+              <div className='d-flex' style={{ gap: '10px' }}>
+                <div> <Skeleton variant="circular" width={84} height={84} /></div>
+                <div><Skeleton className="mt-2" variant="rectangular" width={170} />
+                  <Skeleton className="mt-2" variant="rectangular" width={150} />
+                  <Skeleton className="mt-2" variant="rectangular" width={40} /></div>
+              </div>
             ) : (
               <>
                 <div className="global_wbtn">
@@ -325,17 +326,20 @@ const DashboardDefault = () => {
                     }
                   </div>
                 </div>
+                {/* <div className='text-end'>
+                <DeleteProfileButton />
+                </div> */}
               </>
             )}
           </div>
         </Grid>
- 
+
         <Grid item xs={12} sx={{ mb: 3.25 }}>
           <div className="">
             <div className="top_heding mt-5">
               <h2>Review</h2>
             </div>
- 
+
             <div className="review_listings">
               <ul>
                 {
@@ -361,7 +365,7 @@ const DashboardDefault = () => {
                     reviewList?.length > 0 ?
                       reviewList?.map((item, i) => (
                         <>
- 
+
                           <li key={i} className='mt-0 pt-0'>
                             <div className="review_user">
                               <div className="img_user">
@@ -379,7 +383,7 @@ const DashboardDefault = () => {
                                 </li>
                               </ul>
                             </div>
- 
+
                           </li>
                         </>
                       ))
@@ -399,6 +403,5 @@ const DashboardDefault = () => {
     </Grid>
   );
 };
- 
+
 export default DashboardDefault;
- 

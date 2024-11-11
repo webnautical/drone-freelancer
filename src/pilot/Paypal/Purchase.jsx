@@ -141,6 +141,7 @@ const PurchasePlan = () => {
     });
   };
 
+
   const purchasePlan = async (details, payment_method) => {
     const parmas = {
       plan_id: PlanDetailsData?.planDetails?._id,
@@ -178,6 +179,7 @@ const PurchasePlan = () => {
           paymentstatus: "Success",
           amount: total,
           date: details?.create_time || date?.toLocaleString(),
+          fromAppRequest : PlanDetailsData?.key
         };
         navigate("/user/plans/success", { state: { data: successParam } });
       } else {
@@ -303,7 +305,6 @@ const PurchasePlan = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setProcessing(true);
-    console.log("clientSecret", clientSecret)
     const payload = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card: elements.getElement(CardElement),
@@ -630,6 +631,7 @@ const PurchasePlan = () => {
                                             options={{
                                               "client-id":
                                                 "AVGl7uVRgL4EJorTFqWykbrX4Mqtcmow30S6z3vcvxMiQGA5r94ELvGfcnZfRGp31TwLW-OPdp79jxKJ",
+                                                currency: "AUD"
                                             }}
                                           >
                                             <PayPalButtons

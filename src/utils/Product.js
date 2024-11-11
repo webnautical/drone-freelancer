@@ -200,7 +200,6 @@ const Product = () => {
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
-    console.log("currentItems", currentItems)
     return (
         <div>
             {loading ? (
@@ -291,16 +290,6 @@ const Product = () => {
                                                                 <RemoveRedEyeIcon />
                                                             </Tooltip>
                                                         </Button>
-                                                        {/* <Button className="dlt_btn action-btn d-block" onClick={() => rejectProduct(row)}>
-                                                            <Tooltip title="Reject Product">
-                                                                <SwipeLeftIcon />
-                                                            </Tooltip>
-                                                        </Button> */}
-                                                        {/* <Button className="edit_btn_global action-btn d-block" onClick={() => handleApproved(row)}>
-                                                            <Tooltip title="Approve Product">
-                                                                <CheckBoxIcon />
-                                                            </Tooltip>
-                                                        </Button> */}
                                                         <FormControl className="check_select_outer mb-0">
                                                             <Tooltip
                                                                 title={row.product_approval === "approved" ? "Product is already approved" : "Reject Product"}
@@ -310,7 +299,7 @@ const Product = () => {
                                                                         <Checkbox
                                                                             checked={row.product_approval === "reject"}
                                                                             onChange={() => rejectProduct(row)}
-                                                                            disabled={row.product_approval !== "approved"} // Disable if product is approved
+                                                                            // disabled={row.product_approval !== "approved"}
                                                                             style={{
                                                                                 color: row.product_approval !== "approved" ? '#1677ff' : undefined,
                                                                             }}
@@ -329,7 +318,7 @@ const Product = () => {
                                                                         <Checkbox
                                                                             checked={row.product_approval === "approved"}
                                                                             onChange={() => handleApproved(row)}
-                                                                            disabled={row.product_approval !== "reject"} // Disable if product is rejected
+                                                                            // disabled={row.product_approval !== "reject"}
                                                                             style={{
                                                                                 color: row.product_approval !== "reject" ? '#1677ff' : undefined,
                                                                             }}

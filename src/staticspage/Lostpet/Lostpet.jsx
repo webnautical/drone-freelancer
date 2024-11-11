@@ -6,15 +6,30 @@ import Select from '@mui/material/Select';
 import Textarea from '@mui/material/TextareaAutosize';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import { State } from 'country-state-city';
-import { LoadingBTN, toastifyError, toastifySuccess } from 'Utility/Utility';
+import { LOGIN_AND_GET_INFO_BY_TOKEN_FROM_IOS_AND_ANDROID_APP, LoadingBTN, closeWindow, toastifyError, toastifySuccess } from 'Utility/Utility';
 import { axiosInstance } from 'Utility/Api';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Breacrumb from "staticspage/Header/Breacrumb";
+import { useLocation } from '../../../node_modules/react-router-dom/dist/index';
 const Lostpet = () => {
   const [stateList, setStateList] = useState([]);
   const [loading, setLaoding] = useState(false);
   const [msg, setMsg] = useState('');
+  //Pilot - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjNiMGY1NDIzN2JiZDk1NDJkODQ4ODgiLCJpYXQiOjE3MjgxMDc2MjB9.YZmoA_iqQl9yaJaDrlQED_JGcob_skZoUS2XyqQZeqo
+
+  //Poster - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjNiMGY5ODIzN2JiZDk1NDJkODQ4YTciLCJpYXQiOjE3MjgxMDc3MTV9.COQ5buIL40Yd0OD4GPXjwIjDr7kx1fifeedFoY2w0gQ
+
+  const queryParamsData = useLocation();
+  const queryParams = new URLSearchParams(queryParamsData.search);
+  const key = queryParams.get("key");
+
+  useEffect(() => {
+    if (key !== localStorage.jwt) {
+      LOGIN_AND_GET_INFO_BY_TOKEN_FROM_IOS_AND_ANDROID_APP(key);
+    }
+  }, [key])
+
 
   const [values, setValues] = useState({
     email: '',
@@ -355,26 +370,30 @@ const Lostpet = () => {
       setAnimalFields({})
     }
   }
+
+  // const openNewTab = () => {
+  //   const url = 'http://localhost:3000/animal-rescue';
+  //   const windowName = '_blank';
+  //   const windowFeatures = 'width=800,height=600';
+  //   window.open(url, windowName, windowFeatures);
+  // };
   return (
     <>
       <div className="lost_pet">
-        {/* <section className="breacrumb"></section> */}
-        {/* <div className="bg_top"></div>
-         */}
 
-<Breacrumb />
+        <Breacrumb />
         <section className="form_pilot_find">
           <Container>
             <div className="inner_main_box custom-form">
               <div className="form_heading">
+                {/* <div>
+                  <button onClick={closeWindow}>Close Browser</button>
+                  <button onClick={openNewTab}>Open New Tab</button>
+                </div> */}
                 <div>
                   <h2>{animalFields?.title1}</h2>
                   <div dangerouslySetInnerHTML={{ __html: animalFields?.content1 }} />
                 </div>
-                {/* <div>
-                  <h2>{animalFields?.title2}</h2>
-                  <p>{animalFields?.content2}</p>
-                </div> */}
               </div>
               <Row className="">
                 <Col md="6" className="mb-4">
@@ -561,7 +580,7 @@ const Lostpet = () => {
 
                 <Col md="6" className="mb-4">
                   <div className="group long_text  error">
-                  <label htmlFor="first">If you choose yes affected by a natural disaster type name (optional) </label>
+                    <label htmlFor="first">If you choose yes affected by a natural disaster type name (optional) </label>
                     <input
                       className="inputMaterial"
                       type="text"
@@ -571,7 +590,7 @@ const Lostpet = () => {
                       placeholder="Type Disaster Name "
                     />
                     <span className="bar"></span>
-                 
+
                   </div>
                 </Col>
 
@@ -648,7 +667,7 @@ const Lostpet = () => {
 
                 <Col md="6" className="mb-4">
                   <div className="group long_text error">
-                  <label htmlFor="first">
+                    <label htmlFor="first">
                       If this is not your animal, please explain who s animal it is and why you are reporting it.
                     </label>
                     <input
@@ -660,7 +679,7 @@ const Lostpet = () => {
                       placeholder="Type..."
                     />
                     <span className="bar"></span>
-                
+
                   </div>
                 </Col>
 
@@ -815,10 +834,18 @@ const Lostpet = () => {
                 </Col>
                 <Col md="12" className="mt-2">
                   {msg == 'success' ? (
-                    <Alert severity="success">
-                      <AlertTitle>Success</AlertTitle>
-                      Your animal rescue request has been submitted.
-                    </Alert>
+                    <>
+                      <Alert severity="success">
+                        <AlertTitle>Success</AlertTitle>
+                        Your animal rescue request has been submitted.
+                      </Alert>
+                      {
+                        key &&
+                        <div className='text-center mt-3'>
+                          <button className="global_btn" onClick={closeWindow}>Back to app</button>
+                        </div>
+                      }
+                    </>
                   ) : msg == 'failed' ? (
                     <Alert severity="error">
                       <AlertTitle>Error</AlertTitle>

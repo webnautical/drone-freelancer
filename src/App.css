@@ -1,6 +1,9 @@
 .multi_box .maicard {
   height: 100px;
 }
+.colorChange .MuiBadge-badge{
+  background-color: red !important;
+}
 .ntext{
   text-decoration: none;
   text-transform: uppercase;

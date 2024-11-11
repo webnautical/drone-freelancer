@@ -3,6 +3,10 @@ import { Col, Container, Row } from 'react-bootstrap';
 import dronelogo from '../../assets/images/whitedrone.svg';
 import { Link } from 'react-router-dom';
 import yellowphoto from '../../assets/images/yellow.png'
+
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   return (
@@ -57,10 +61,19 @@ const Footer = () => {
                   </li>
                   <li>
                   <a href="https://www.knowyourdrone.gov.au" target="_blank" rel="noopener noreferrer">Know Your Drone (by CASA)</a>
-
-
                   </li>
                 </ul>
+              </div>
+              <div className="footer_social_icons">
+                <Link to={'https://www.facebook.com/dronefreelancerau/'} target="_blank">
+                  <FacebookIcon />
+                </Link>
+                <Link to={'https://www.instagram.com/dronefreelancer_australia/'} target="_blank">
+                  <InstagramIcon />
+                </Link>
+                <Link to={'https://www.linkedin.com/company/drone-freelancer/'} target="_blank">
+                  <LinkedInIcon />
+                </Link>
               </div>
             </Col>
           </Row>

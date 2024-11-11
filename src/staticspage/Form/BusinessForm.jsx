@@ -5,7 +5,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Textarea from '@mui/material/TextareaAutosize';
 import PlacesAutocomplete from 'react-places-autocomplete';
-import { LoadingBTN, getAllLocatData } from '../../Utility/Utility';
+import { LOGIN_AND_GET_INFO_BY_TOKEN_FROM_IOS_AND_ANDROID_APP, LoadingBTN, closeWindow, getAllLocatData } from '../../Utility/Utility';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
@@ -15,13 +15,21 @@ import ApplyNow from './ApplyNow';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { State } from 'country-state-city';
 import Breacrumb from "staticspage/Header/Breacrumb";
-// import { useFrontDataContext } from 'context/FrontContextProvider';
 
 const BusinessForm = () => {
   const navigate = useNavigate()
   const data = useLocation()
   const portalData = data.state ? data.state.portalData : null
-  // const {portalData, setPortalData} = useFrontDataContext()
+
+  const queryParamsData = useLocation();
+  const queryParams = new URLSearchParams(queryParamsData.search);
+  const key = queryParams.get("key");
+
+  useEffect(()=>{
+    if (key !== localStorage.jwt) {
+      LOGIN_AND_GET_INFO_BY_TOKEN_FROM_IOS_AND_ANDROID_APP(key);
+    }
+  },[key])
 
 
   const [loading, setLoading] = useState(false);
@@ -322,11 +330,6 @@ const BusinessForm = () => {
     <>
       <div className="lost_pet">
 
-        {/* <div className="bg_top"></div>
-        
-        
-        */}
-
         <Breacrumb />
         <section className="form_pilot_find">
           <Container>
@@ -340,18 +343,18 @@ const BusinessForm = () => {
                     </p>
 
                     <ol className='points_employment'>
-                  
+
                       <li>Businesses must register an account.
                       </li>
-                      <li>Fill out the job listing form and choose your preferred reach:<br/> 
-- All pilots in the specified State, or <br/> 
-- Pilots within a 200km radius of the job location.
-</li>
+                      <li>Fill out the job listing form and choose your preferred reach:<br />
+                        - All pilots in the specified State, or <br />
+                        - Pilots within a 200km radius of the job location.
+                      </li>
 
-<li>Pay a $150 fee to post the job listing.
-</li>
-<li>Your job posting will be sent to all eligible pilots who have opted to receive job notifications in the selected area.
-</li>
+                      <li>Pay a $150 fee to post the job listing.
+                      </li>
+                      <li>Your job posting will be sent to all eligible pilots who have opted to receive job notifications in the selected area.
+                      </li>
                     </ol>
 
                     <p>Our efficient process ensures that your project reaches qualified drone professionals quickly, helping you find the right expertise for your specific needs.</p>
@@ -581,10 +584,18 @@ const BusinessForm = () => {
                     </Col>
                     <Col md="12" className="mt-2">
                       {msg == 'success' ? (
+                        <>
                         <Alert severity="success">
                           <AlertTitle>Success</AlertTitle>
                           Your request submitted successfully !!
                         </Alert>
+                        {
+                          key &&
+                          <div className='text-center mt-3'>
+                            <button className="global_btn" onClick={closeWindow}>Back to app</button>
+                          </div>
+                        }
+                      </>
                       ) : msg == 'failed' ? (
                         <Alert severity="error">
                           <AlertTitle>Error</AlertTitle>

@@ -416,6 +416,7 @@ const PaymentBTN = ({ extraAreaCat, setExtraAreaCat, userData, setAmntLoading, t
                                                         options={{
                                                             "client-id":
                                                                 "AVGl7uVRgL4EJorTFqWykbrX4Mqtcmow30S6z3vcvxMiQGA5r94ELvGfcnZfRGp31TwLW-OPdp79jxKJ",
+                                                            currency: "AUD"
                                                         }}
                                                     >
                                                         <PayPalButtons

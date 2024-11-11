@@ -20,7 +20,7 @@ const ProfileTab = () => {
 
   const handleLogout = async () => {
     localStorage.clear();
-    
+    localStorage.clear()
     navigate('/');
   };
 

@@ -3233,3 +3233,18 @@ gap: 20px;
   transform: translate(-50%, -50%);    text-wrap: nowrap;}
 
   .global_btn.height_margin:hover{ transform: unset!important;   transform: translate(-50%, -50%)!important;}
+  .footer_social_icons{
+    display: flex;
+    gap: 10px;
+  }
+  .footer_social_icons a{
+    background-color: #fff;
+    display: block;
+    padding: 4px;
+    border-radius: 4px;
+    color: #0072ff ;
+  }
+  .footer_social_icons a svg{
+    width: 28px;
+    height: 28px;
+  }

@@ -22,6 +22,7 @@ export default function ThemeRoutes() {
 
     const logoutAfterInactivity = () => {
       localStorage.clear();
+      localStorage.clear()
       navigate('/login') 
     };
 

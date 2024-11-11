@@ -14,13 +14,14 @@ import InputLabel from '@mui/material/InputLabel';
 import Checkbox from '@mui/material/Checkbox';
 import ListItemText from '@mui/material/ListItemText';
 import { useNavigate } from 'react-router-dom';
-import { getAllLocatData } from 'Utility/Utility';
+import { LOGIN_AND_GET_INFO_BY_TOKEN_FROM_IOS_AND_ANDROID_APP, getAllLocatData } from 'Utility/Utility';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Breacrumb from 'staticspage/Header/Breacrumb';
+import { useLocation } from '../../../node_modules/react-router-dom/dist/index';
 // import whychoose from '../../assets/images/whychoose.png';
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -42,6 +43,36 @@ const Pricing = () => {
   // const [viewAll, setViewAll] = useState();
   const [extraCatAmount, setExtraCatAmount] = useState();
   const [ultimateRadius, setSelectedCategories] = useState({});
+
+  const queryParamsData = useLocation();
+  const queryParams = new URLSearchParams(queryParamsData.search);
+  const key = queryParams.get("key");
+  const plan_id = queryParams.get("plan_id");
+  const categoriesParam = queryParams.get("categories");
+
+  useEffect(()=>{
+    if (key !== localStorage.jwt) {
+      LOGIN_AND_GET_INFO_BY_TOKEN_FROM_IOS_AND_ANDROID_APP(key);
+    }
+  },[key])
+
+  const filteredItem = planList?.find(item => item._id === plan_id);
+
+  useEffect(() =>{
+    if (key && plan_id && filteredItem) {
+      const categories = categoriesParam ? JSON.parse(decodeURIComponent(categoriesParam)) : [];
+      const dataToPass = {
+        [plan_id]: categories
+      };
+      const obj = {
+        planDetails: filteredItem,
+        extraCategory: dataToPass,
+        extraCatAmount,
+        key: key
+      };
+      navigate('/user/plans/purchase', { state: { data: obj } });
+    }
+  },[key, plan_id, filteredItem])
 
   const planListFun = async () => {
     setLoading(true);
@@ -102,13 +133,12 @@ const Pricing = () => {
         const obj = {
           planDetails: item,
           extraCategory: ultimateRadius,
-          extraCatAmount
+          extraCatAmount,
         };
         navigate('/user/plans/purchase', { state: { data: obj } });
       }
     }
   };
-
 
   const [planComparison, setPlanComparison] = useState([]);
   const getPlanCompareList = async () => {
@@ -125,7 +155,22 @@ const Pricing = () => {
     }
   };
 
-  console.log("ultimateRadius",ultimateRadius)
+
+  // console.log("ultimateRadius",ultimateRadius)
+
+  // const categories = [
+  //   "Agriculture",
+  //   "Asset or industrial inspection",
+  //   "Boating and Water Sports",
+  //   "Business Employment Portal"
+  // ];
+  // const encodedCategories = encodeURIComponent(JSON.stringify(categories));
+
+  // console.log("encodedCategories",encodedCategories)
+
+  // http://localhost:3000/plans?key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjNiMGY1NDIzN2JiZDk1NDJkODQ4ODgiLCJpYXQiOjE3MjgxMDc2MjB9.YZmoA_iqQl9yaJaDrlQED_JGcob_skZoUS2XyqQZeqo&plan_id=6572d96bb83ec0df3f670f8a&categories=%5B%22Agriculture%22%2C%22Asset%20or%20industrial%20inspection%22%2C%22Boating%20and%20Water%20Sports%22%2C%22Business%20Employment%20Portal%22%5D
+
+
   return (
     <>
       <div className="pricing_main pricing_main_front">
@@ -280,7 +325,7 @@ const Pricing = () => {
                                       </button>
                                       :
                                       <>
-                                        <button className="global_btn height_margin ">Get Started</button>
+                                        <button className="global_btn height_margin " onClick={() => goToPlanPurchasePage(item)}>Get Started</button>
                                       </>
                                   }
                           </>

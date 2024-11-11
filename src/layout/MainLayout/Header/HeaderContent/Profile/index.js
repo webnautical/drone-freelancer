@@ -60,6 +60,7 @@ const Profile = () => {
   const navigate = useNavigate()
   const handleLogout = async () => {
     localStorage.clear();
+    sessionStorage.clear()
     navigate('/');
   };
 

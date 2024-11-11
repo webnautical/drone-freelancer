@@ -316,7 +316,6 @@ export default function Profileedit() {
           setExtraCatAmount(data?.priceExtra);
           setValues({ ...valuees, multiCategory: data?.getacceptedjob[0]?.specilization });
 
-          console.log("response", data?.getacceptedjob[0])
           // setFullTimeEmpNote(checkForFullTimeEmployment(data?.getacceptedjob[0]?.specilization))
           setUserdata(data?.getacceptedjob[0]);
           setUserQualification(data?.qualification[0]);

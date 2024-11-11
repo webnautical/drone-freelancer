@@ -4,6 +4,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { Link, useLocation } from '../../../node_modules/react-router-dom/dist/index';
 import fail from '../../assets/images/fail.gif';
 import success from '../../assets/images/success-icon.gif';
+import { closeWindow } from 'Utility/Utility';
 const Success = () => {
     const PlanDetails = useLocation();
     const PlanDetailsData = PlanDetails.state ? PlanDetails.state.data : null;
@@ -35,7 +36,14 @@ const Success = () => {
                                                     <p className='mb-1'><strong>Total Amount : </strong> ${PlanDetailsData?.amount} AUD</p>
 
                                                 </div>
-                                                
+
+                                                {
+                                                    PlanDetailsData?.fromAppRequest &&
+                                                    <div className='text-center mt-3'>
+                                                        <button className="global_btn" onClick={closeWindow}>Back to app</button>
+                                                    </div>
+                                                }
+
                                             </Col>
                                         </>
                                         :
@@ -52,7 +60,7 @@ const Success = () => {
 
                                 }
 
-                              <div className='go_dahboard mt-3'>  <Link to="/user/dashboard/default" className='global_btn'>Go to Dashboard</Link></div>
+                                <div className='go_dahboard mt-3'>  <Link to="/user/dashboard/default" className='global_btn'>Go to Dashboard</Link></div>
                             </Row>
                         </Container>
                     </section>
