@@ -67,119 +67,114 @@ const Howitwork = () => {
                 </div>
             }
 
-            <div className="outer_div text-center">
-              <Tabs defaultActiveKey="home" transition={false} id="noanim-tab-example" onClick={(e) => setChangeTitle(e.target.innerHTML)}>
-                <Tab eventKey="home" title="pilot">
-                  <div className="steps_work">
-                    <Row className="justify-content-center">
-                      <Col md={12}>
-                        <Row>
-                          <Col md={6} lg={3} className="mb-3">
-                            <div className="step_how_work_box text-center">
-                              <div className="icon">
-                                <img src={signupimg} alt="" />
-                              </div>
-                              <h2>Join Us</h2>
-                              <p>Join our drone pilot community for exciting jobs.
-                              </p>
-                            </div>
-                          </Col>
-
-                          <Col md={6} lg={3} className="mb-3">
-                            <div className="step_how_work_box text-center">
-                              <div className="icon">
-                                <img src={submit} alt="" />
-                              </div>
-                              <h2>Create Your Pilot Profile
-                              </h2>
-                              <p>Free Sign Up. Create your skill-showcasing profile.</p>
-                            </div>
-                          </Col>
-
-                          <Col md={6} lg={3} className="mb-3">
-                            <div className="step_how_work_box text-center">
-                              <div className="icon">
-                                <img src={plan} alt="" />
-                              </div>
-                              <h2>Complete Form
-                              </h2>
-                              <p>Add details for better job matches. 
-                              </p>
-                            </div>
-                          </Col>
-
-                          <Col md={6} lg={3} className="mb-3">
-                            <div className="step_how_work_box text-center">
-                              <div className="icon">
-                                <img src={droneblue} alt="" />
-                              </div>
-                              <h2>Take Flight</h2>
-                              <p>Bid on jobs and elevate your drone career. </p>
-                            </div>
-                          </Col>
-                        </Row>
-                      </Col>
-                    </Row>
+<div className="outer_div text-center">
+  <Tabs
+    defaultActiveKey="profile"
+    transition={false}
+    id="noanim-tab-example"
+    onClick={(e) => setChangeTitle(e.target.innerHTML)}
+  >
+    <Tab eventKey="profile" title="poster">
+      <div className="steps_work">
+        <Row className="justify-content-center">
+          <Col md={12}>
+            <Row>
+              <Col md={3}>
+                <div className="step_how_work_box text-center">
+                  <div className="icon">
+                    <img src={signupimg} alt="" />
                   </div>
-                </Tab>
-                <Tab eventKey="profile" title="poster">
-                  <div className="steps_work">
-                    <Row className="justify-content-center">
-                      <Col md={12}>
-                        <Row>
-                          <Col md={3}>
-                            <div className="step_how_work_box text-center">
-                              <div className="icon">
-                                <img src={signupimg} alt="" />
-                              </div>
-                              <h2>Join Us</h2>
-                              <p>Join our drone service community for all needs. 
-                              </p>
-                            </div>
-                          </Col>
+                  <h2>Join Us</h2>
+                  <p>Join our drone service community for all needs.</p>
+                </div>
+              </Col>
 
-                          <Col md={3}>
-                            <div className="step_how_work_box text-center">
-                              <div className="icon">
-                                <img src={submit} alt="" />
-                              </div>
-                              <h2>Create Your Poster Account
-                              </h2>
-                              <p>Create an account. Access skilled drone pilots fast. </p>
-                            </div>
-                          </Col>
-
-                          <Col md={3}>
-                            <div className="step_how_work_box text-center">
-                              <div className="icon">
-                              <img src={doneimg} alt="" />
-                               
-                              </div>
-                              <h2>Complete Profile 
-                              </h2>
-                              <p>Describe your needs for best pilot matches. 
-                              </p>
-                            </div>
-                          </Col>
-
-                          <Col md={3}>
-                            <div className="step_how_work_box text-center">
-                              <div className="icon">
-                              <img src={job} alt="" />
-                              </div>
-                              <h2>Start Posting 
-                              </h2>
-                              <p>Post project. Set budget. Our pilots are ready. 
-                              </p>
-                            </div>
-                          </Col>
-                        </Row>
-                      </Col>
-                    </Row>
+              <Col md={3}>
+                <div className="step_how_work_box text-center">
+                  <div className="icon">
+                    <img src={submit} alt="" />
                   </div>
-                </Tab>
-              </Tabs>
-            </div>
+                  <h2>Create Your Poster Account</h2>
+                  <p>Create an account. Access skilled drone pilots fast.</p>
+                </div>
+              </Col>
+
+              <Col md={3}>
+                <div className="step_how_work_box text-center">
+                  <div className="icon">
+                    <img src={doneimg} alt="" />
+                  </div>
+                  <h2>Complete Profile</h2>
+                  <p>Describe your needs for best pilot matches.</p>
+                </div>
+              </Col>
+
+              <Col md={3}>
+                <div className="step_how_work_box text-center">
+                  <div className="icon">
+                    <img src={job} alt="" />
+                  </div>
+                  <h2>Start Posting</h2>
+                  <p>Post project. Set budget. Our pilots are ready.</p>
+                </div>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </div>
+    </Tab>
+    <Tab eventKey="home" title="pilot">
+      <div className="steps_work">
+        <Row className="justify-content-center">
+          <Col md={12}>
+            <Row>
+              <Col md={6} lg={3} className="mb-3">
+                <div className="step_how_work_box text-center">
+                  <div className="icon">
+                    <img src={signupimg} alt="" />
+                  </div>
+                  <h2>Join Us</h2>
+                  <p>Join our drone pilot community for exciting jobs.</p>
+                </div>
+              </Col>
+
+              <Col md={6} lg={3} className="mb-3">
+                <div className="step_how_work_box text-center">
+                  <div className="icon">
+                    <img src={submit} alt="" />
+                  </div>
+                  <h2>Create Your Pilot Profile</h2>
+                  <p>Free Sign Up. Create your skill-showcasing profile.</p>
+                </div>
+              </Col>
+
+              <Col md={6} lg={3} className="mb-3">
+                <div className="step_how_work_box text-center">
+                  <div className="icon">
+                    <img src={plan} alt="" />
+                  </div>
+                  <h2>Complete Form</h2>
+                  <p>Add details for better job matches.</p>
+                </div>
+              </Col>
+
+              <Col md={6} lg={3} className="mb-3">
+                <div className="step_how_work_box text-center">
+                  <div className="icon">
+                    <img src={droneblue} alt="" />
+                  </div>
+                  <h2>Take Flight</h2>
+                  <p>Bid on jobs and elevate your drone career.</p>
+                </div>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </div>
+    </Tab>
+  </Tabs>
+</div>
+
 
             <Row className="justify-content-between ">
               <Col md="6">

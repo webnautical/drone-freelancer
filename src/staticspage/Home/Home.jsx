@@ -197,7 +197,7 @@ const Home = () => {
       navigate(`/${text}`)
     }
   }
-
+ 
   return (
     <div>
       <section
@@ -228,7 +228,7 @@ const Home = () => {
       <section className="get_start">
         <Container>
           <>
-            <div className="global_heading" data-aos="fade-up" data-aos-duration="1000">
+            <div className="global_heading mb-5" data-aos="fade-up" data-aos-duration="1000">
               <div dangerouslySetInnerHTML={{ __html: staticdata[0]?.getstartedsection?.tital }} />
             </div>
             <Row className="get_q">
@@ -526,3 +526,4 @@ const Home = () => {
 };
  
 export default Home;
+ 

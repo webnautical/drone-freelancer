@@ -19,6 +19,10 @@ export default function HomepageContent() {
     ptag: '',
     banerImage: '',
     dronImage: '',
+    howitworksImage: '',
+    droneHireBg: '',
+    getStartedImage: '',
+    categoryDronImage: '',
     getStartedSection: {
       tital: '',
       quates: [{}]
@@ -38,16 +42,27 @@ export default function HomepageContent() {
     }
   });
 
-  const handleInputChange2 = (event) => {
+  const handleInputChange2 = (event, optionIndex) => {
     const { name, value } = event.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      howitworksection: {
-        ...prevData.howitworksection,
-        [name]: value
-      },
-    }));
+  
+    setFormData((prevData) => {
+      const updatedOptions = [...prevData.howitworksection.option];
+  
+      updatedOptions[optionIndex] = {
+        ...updatedOptions[optionIndex],
+        [name]: value,
+      };
+  
+      return {
+        ...prevData,
+        howitworksection: {
+          ...prevData.howitworksection,
+          option: updatedOptions,
+        },
+      };
+    });
   };
+  
 
   const handleInputChange22 = (event, editor) => {
     const updatedData = editor.getData();
@@ -129,8 +144,6 @@ export default function HomepageContent() {
       updatedGetStartedSection.quates[index] = {};
     }
     const file = event.target.files[0];
-    console.log(updatedGetStartedSection)
-    console.log(file)
     if (file) {
       const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
       if (!allowedTypes.includes(file.type)) {
@@ -150,6 +163,7 @@ export default function HomepageContent() {
       reader.readAsDataURL(file);
     }
   };
+
   const handleImageChange3 = (event) => {
     const file = event.target.files[0];
 
@@ -169,6 +183,8 @@ export default function HomepageContent() {
       reader.readAsDataURL(file);
     }
   };
+
+
   const handleImageChange4 = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -177,6 +193,19 @@ export default function HomepageContent() {
         setFormData({
           ...formData,
           dronImage: reader.result
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const newImage1 = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData({
+          ...formData,howitworksImage: reader.result
         });
       };
       reader.readAsDataURL(file);
@@ -203,7 +232,13 @@ export default function HomepageContent() {
           tital: data.addHomecontent[0]?.tital || '',
           htag: data.addHomecontent[0]?.htag || '',
           ptag: data.addHomecontent[0]?.ptag || '',
+          bannerContent1: data.addHomecontent[0]?.bannerContent1 || '',
+          bannerContent2: data.addHomecontent[0]?.bannerContent2 || '',
           banerImage: data.addHomecontent[0]?.banerImage || '',
+          howitworksImage: data.addHomecontent[0]?.howitworksImage || '',
+          getStartedImage: data.addHomecontent[0]?.getStartedImage || '',
+          droneHireBg: data.addHomecontent[0]?.droneHireBg || '',
+          categoryDronImage: data.addHomecontent[0]?.categoryDronImage || '',
           dronImage: data.addHomecontent[0]?.dronImage || '',
           getStartedSection: data.addHomecontent[0]?.getstartedsection || { quates: [{}] },
           howitworksection: {
@@ -233,7 +268,6 @@ export default function HomepageContent() {
   const handleUpdate = async () => {
     try {
       setloading(true);
-      console.log(formData);
       const response = await fetch(`${config.url}/admin/updateHomePageContent/${formData._id}`, {
         method: 'POST',
         headers: {
@@ -318,12 +352,119 @@ export default function HomepageContent() {
     });
   }
 
+
+
+  const newImage2 = (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+      if (!allowedTypes.includes(file.type)) {
+        setError('Unsupported file type. Please upload a PNG, JPEG, JPG, WEBP, or ZIP file.');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData({
+          ...formData,
+          getStartedImage: reader.result
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const newImage3 = (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+      if (!allowedTypes.includes(file.type)) {
+        setError('Unsupported file type. Please upload a PNG, JPEG, JPG, WEBP, or ZIP file.');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData({
+          ...formData,
+          categoryDronImage: reader.result
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const newImage4 = (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData({
+          ...formData,
+          droneHireBg: reader.result
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+ 
+
+  const handleEditorChange1 = (event, editor) => {
+    const updatedData = editor.getData();
+    setFormData((prevData) => ({
+      ...prevData,
+      bannerContent1: updatedData
+    }));
+  };
+
+  const handleEditorChange2 = (event, editor) => {
+    const updatedData = editor.getData();
+    setFormData((prevData) => ({
+      ...prevData,
+      bannerContent2: updatedData
+    }));
+  };
+
+  console.log("formData",formData)
+
   return (
     <div>
       <Grid container style={{ justifyContent: 'center' }}>
         <Grid item xs={8} className="box">
           <h1 className="top_heading_pages_text  ">Home Page Content</h1>
           <Grid className="pages_global_background  p-4" container sx={{ my: 1 }}>
+
+
+            <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className="mb-4 p-2">
+              <CKEditor editor={ClassicEditor} name="bannerContent1" data={formData.bannerContent1}
+                onChange={handleEditorChange1} config={{
+                  heading: {
+                    options: [
+                      { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                      { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                      { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                      { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' }
+                    ]
+                  }
+                }} />
+            </Grid>
+
+            <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className="mb-4 p-2">
+              <CKEditor editor={ClassicEditor} name="bannerContent2" data={formData.bannerContent2}
+                onChange={handleEditorChange2} config={{
+                  heading: {
+                    options: [
+                      { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                      { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                      { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                      { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' }
+                    ]
+                  }
+                }} />
+            </Grid>
+
             <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className="mb-4 p-2">
               <CKEditor editor={ClassicEditor} name="ptag" data={formData.ptag}
                 onChange={handleEditorChange} config={{
@@ -338,6 +479,7 @@ export default function HomepageContent() {
                 }} />
 
             </Grid>
+
             <Grid item xl={6} lg={12} md={12} sm={12} xs={12} className="mb-4 p-2">
               <FormControl fullWidth>
                 <div className="file-uploader">
@@ -353,6 +495,71 @@ export default function HomepageContent() {
                 {formData.banerImage && <img src={formData.banerImage} alt="Banner" />}
               </div>
             </Grid>
+
+            <Grid item xl={6} lg={12} md={12} sm={12} xs={12} className="mb-4 p-2">
+              <FormControl fullWidth>
+                <div className="file-uploader">
+                  <label htmlFor="file5" className="global_file_upload_deisgn">
+                    <InsertPhotoIcon />
+                    How it work Image (Recommended size 480px x 560px)
+                    <input type="file" id="file5" accept="image/*,image/gif" onChange={(event) => newImage1(event)} />
+                  </label>
+                </div>
+              </FormControl>
+              <div className="preview_upload">
+                <h4>Background Preview</h4>
+                {formData.howitworksImage && <img src={formData.howitworksImage} alt="Banner" />}
+              </div>
+            </Grid>
+
+            <Grid item xl={6} lg={12} md={12} sm={12} xs={12} className="mb-4 p-2">
+              <FormControl fullWidth>
+                <div className="file-uploader">
+                  <label htmlFor="newImage2" className="global_file_upload_deisgn">
+                    <InsertPhotoIcon />
+                    Get Started Image (Recommended size 480px x 560px)
+                    <input type="file" id="newImage2" accept="image/*,image/gif" onChange={(event) => newImage2(event)} />
+                  </label>
+                </div>
+              </FormControl>
+              <div className="preview_upload">
+                <h4>Background Preview</h4>
+                {formData.getStartedImage && <img src={formData.getStartedImage} alt="Banner" />}
+              </div>
+            </Grid>
+
+            <Grid item xl={6} lg={12} md={12} sm={12} xs={12} className="mb-4 p-2">
+              <FormControl fullWidth>
+                <div className="file-uploader">
+                  <label htmlFor="newImage3" className="global_file_upload_deisgn">
+                    <InsertPhotoIcon />
+                    Dron Hire Background Image (Recommended size 1996px x440px)
+                    <input type="file" id="newImage3" accept="image/*,image/gif" onChange={(event) => newImage4(event)} />
+                  </label>
+                </div>
+              </FormControl>
+              <div className="preview_upload">
+                <h4>Background Preview</h4>
+                {formData.droneHireBg && <img src={formData.droneHireBg} alt="Banner" />}
+              </div>
+            </Grid>
+
+            <Grid item xl={6} lg={12} md={12} sm={12} xs={12} className="mb-4 p-2">
+              <FormControl fullWidth>
+                <div className="file-uploader">
+                  <label htmlFor="categoryDronImage" className="global_file_upload_deisgn">
+                    <InsertPhotoIcon />
+                   Category Drone Image (Recommended size 526px x 388px)
+                    <input type="file" id="categoryDronImage" accept="image/*,image/gif" onChange={(event) => newImage3(event)} />
+                  </label>
+                </div>
+              </FormControl>
+              <div className="preview_upload">
+                <h4>Background Preview</h4>
+                {formData.categoryDronImage && <img src={formData.categoryDronImage} alt="Banner" />}
+              </div>
+            </Grid>
+
             <Grid item xl={6} lg={12} md={12} sm={12} xs={12} className="mb-4 p-2">
               <FormControl fullWidth>
                 <div className="file-uploader">
@@ -498,6 +705,15 @@ export default function HomepageContent() {
                   formData?.howitworksection?.option?.map((option, optionIndex) => (
                     <Grid item xs={12} key={optionIndex}>
                       {/* ... Your existing JSX for option ... */}
+                      <FormControl className="mb-4 p-2" fullWidth>
+                        <TextField
+                          variant="outlined"
+                          label="tital"
+                          name={`tital`}
+                          value={option?.tital}
+                          onChange={(event) => handleInputChange2(event, optionIndex)}
+                        />
+                      </FormControl>
                       {option.points.map((point, index) => (
                         <div className="point_keys" key={index}>
                           <FormControl className="mb-4 p-2" fullWidth>

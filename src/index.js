@@ -80,6 +80,7 @@ import PilotList from 'staticspage/Pilotmap/PilotList';
 
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import Newhome from 'staticspage/Home/Newhome';
 // import NotFound from 'Utility/NotFound';
 // const stripePromise = loadStripe('pk_test_51PPi6VKc8CNsxNnE0tXJjUGr8pPvuSzncsDVMjyzrXyguJK9prbJdKBfyvdWPNxRgNgYidtr2chDkRejRKZFN8F900yJb3JEhE');
 const stripePromise = loadStripe('pk_live_51PPi6VKc8CNsxNnEKl4sXhOlDWoWMkxk3dTzolMRrD61VAXVOX3JER5HZORGmEtmyTteHIHk8QwIMf3E0v6rczZB00COjSh9DL');
@@ -110,6 +111,7 @@ root.render(
 
         <ReduxProvider store={store}>
           <Routes>
+            <Route path="/new-home" element={<Front cmp={Newhome} />} />
             <Route path="/" element={<Front cmp={Mainpage} />} />
             <Route path="/about" element={<Front cmp={About} />} />
             <Route path="/plans" element={<Front cmp={Pricing} />} />
