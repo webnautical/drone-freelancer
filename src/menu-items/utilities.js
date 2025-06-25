@@ -18,14 +18,14 @@ const utilities = {
   type: 'group',
   children: [
     {
-      
-        id: 'dashboard',
-        title: 'Dashboard',
-        type: 'item',
-        url: `${config.basename}/dashboard/default`,
-        icon: LineAxisIcon,
-        breadcrumbs: false
-     
+
+      id: 'dashboard',
+      title: 'Dashboard',
+      type: 'item',
+      url: `${config.basename}/dashboard/default`,
+      icon: LineAxisIcon,
+      breadcrumbs: false
+
     },
     {
       id: 'user-mangement',
@@ -38,6 +38,20 @@ const utilities = {
           title: 'Pilot Request ',
           type: 'item',
           url: `${config.basename}/utils/pilot`,
+          breadcrumbs: false
+        },
+        {
+          id: 'incomplete-user',
+          title: 'Incomplete Pilot List',
+          type: 'item',
+          url: `${config.basename}/utils/pilot/incomplete`,
+          breadcrumbs: false
+        },
+        {
+          id: 'delete-user',
+          title: 'Delete User',
+          type: 'item',
+          url: `${config.basename}/utils/pilot/delete-user`,
           breadcrumbs: false
         },
         {
@@ -82,7 +96,7 @@ const utilities = {
           url: `${config.basename}/utils/posterlist`,
           breadcrumbs: false
         },
-       
+
         {
           id: 'deleted-user',
           title: 'Rejected Pilot',
@@ -98,7 +112,7 @@ const utilities = {
       title: 'Manage Marketplace',
       type: 'item',
       url: `${config.basename}/product`,
-      icon: StorefrontIcon    
+      icon: StorefrontIcon
     },
     {
       id: 'postedjob',
@@ -114,7 +128,7 @@ const utilities = {
     //   url: `${config.basename}/awardedjob`,
     //   icon: BlockIcon
     // },
-    
+
     {
       id: 'transaction',
       title: 'Transactions',
@@ -167,7 +181,7 @@ const utilities = {
       type: 'item',
       url: `${config.basename}/utils/fulltimejobrequest`,
       icon: PaymentIcon
-   
+
     },
     {
       id: 'animalrescue',
@@ -275,7 +289,7 @@ const utilities = {
           url: `${config.basename}/meta-listing`,
           breadcrumbs: false
         },
-      ] 
+      ]
     }
   ]
 };

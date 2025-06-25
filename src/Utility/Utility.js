@@ -3,7 +3,7 @@ var CryptoJS = require('crypto-js');
 import Profile from '../assets/images/defaultuser.png';
 import { utils, writeFileXLSX } from 'xlsx';
 import CircularProgress from '@mui/material/CircularProgress';
-import { Box} from '@mui/material';
+import { Box } from '@mui/material';
 import config from 'config';
 // import { axiosInstance } from './Api';
 export const libraries = ['places'];
@@ -16,7 +16,8 @@ export const apiBaseURL = () => {
   if (hostname == 'dronmatchmaker.itworkshop.in') {
     return 'https://dronmatchmaker.itworkshop.in';
   } else {
-    return 'https://dronefreelancer.com.au';
+    // return 'https://dronefreelancer.com.au';
+    return 'https://dronmatchmaker.itworkshop.in';
   }
   // if (hostname === "localhost" || hostname === "127.0.0.1") {
   //   // return "https://dronmatchmaker.itworkshop.in";
@@ -33,6 +34,26 @@ export const apiBaseURL = () => {
   // }
 };
 
+export const jobPostExportFun = async (navigate) => {
+  try {
+    const payload = JSON.parse(localStorage.getItem("jobData"))
+    const res = await fetch(`${config.url}/user/createJobByClient`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getAllLocatData()?.jwt}` },
+      body: JSON.stringify(payload)
+    });
+    const resultdata = await res.json();
+    if (resultdata.status == 200) {
+      navigate('/success');
+      localStorage.removeItem("jobData")
+    } else {
+      toastifyError("Something Wen't Wrong !!");
+    }
+  } catch (error) {
+    console.log(error);
+    toastifyError("Something Wen't Wrong !!");
+  }
+}
 
 
 export const toastifySuccess = (message) => {
@@ -134,6 +155,19 @@ export const LoadingDashBTN = () => {
   );
 };
 
+export const formatTypeLabel = (str) => {
+  if (typeof str !== 'string' || !str.trim()) {
+    return '';
+  }
+
+  return str
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+};
+
+
+
 export const generateSlug = (str) => {
   return str.toLowerCase().replace(/[\s_]/g, '-').replace(/[^\w-]+/g, '');
 };
@@ -173,7 +207,7 @@ export const LOGIN_AND_GET_INFO_BY_TOKEN_FROM_IOS_AND_ANDROID_APP = async (key) 
   }
 };
 
-export const  closeWindow = () => {
+export const closeWindow = () => {
   window.open('', '_self');
   window.close();
 }

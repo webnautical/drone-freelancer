@@ -23,9 +23,8 @@ import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
 import config from "config";
 import Tooltip from "@mui/material/Tooltip";
-// import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
 import ForwardToInboxIcon from '@mui/icons-material/ForwardToInbox';
-import { handleDownloadExcel } from "../Utility/Utility"
+import { formatTypeLabel, handleDownloadExcel } from "../Utility/Utility"
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import "../App.css";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
@@ -58,6 +57,7 @@ import {  timeAgo } from "Utility/Date";
 import { Checkbox, FormLabel, Radio, RadioGroup } from "../../node_modules/@mui/material/index";
 import { axiosInstance } from "Utility/Api";
 import { useParams } from "../../node_modules/react-router-dom/dist/index";
+
 const Usermanagement = () => {
   const [open, setOpen] = useState(false)
   const { type } = useParams()
@@ -177,10 +177,12 @@ const Usermanagement = () => {
       });
   };
 
+
+
   useEffect(() => {
     if (type === "approved") {
       getData();
-    } else {
+    }else {
       getPilotByParams()
     }
     getPlanSubs()
@@ -313,13 +315,11 @@ const Usermanagement = () => {
     }
   }
 
-  console.log("filteredData", filteredData)
-
   return (
     <ComponentSkeleton>
       <div className="dahbard_table top_tab_bar">
         <div>
-          <h2>Pilot List</h2>
+          <h2>{formatTypeLabel(type)} Pilots</h2>
         </div>
 
         <div className="input-box">

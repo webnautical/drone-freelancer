@@ -39,6 +39,7 @@ import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
 import Button from "@mui/material/Button";
 import { axiosInstance } from "Utility/Api";
+import PostJob from "poster/PostJob";
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
     children: React.ReactElement<any, any>,
@@ -167,8 +168,6 @@ const Newhome = () => {
     AOS.init();
   }, []);
 
-  console.log("homePageData", homePageData)
-
   return (
     <div className="new_home">
 
@@ -211,6 +210,13 @@ const Newhome = () => {
           </Container>
         </div>
       </section>
+
+      <section className="post-a-job-home app_download">
+        <div className="container">
+          <PostJob jobPostType={"front"}/>
+        </div>
+      </section>
+
 
       {/* HOW  IT WORK SECTION */}
       <section className="how_work">

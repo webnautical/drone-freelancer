@@ -12,28 +12,32 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useState } from 'react';
-const ProfileTab = ({ handleLogout }) => {
+import { toastifySuccess } from 'Utility/Utility';
+const ProfileTab = ({ handleLogout,onClose }) => {
   const theme = useTheme();
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const handleDeleteAccount = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       const res = await axiosInstance.delete('user/deleteUserAccount');
-      if (res?.data?.status == 200) {
-        setLoading(false)
-        toastifySuccess("Your Account Deleted Successfully !!")
+      if (res?.data?.status === 200) {
+        setLoading(false);
+        setOpen(false);
+        toastifySuccess("Your Account Deleted Successfully !!");
         localStorage.clear();
-        navigate('/');
+        if (onClose) onClose();
+        navigate('/login');
       } else {
-        setLoading(false)
+        setLoading(false);
       }
     } catch (error) {
-      console.log(error)
-      setLoading(false)
+      console.log(error);
+      setLoading(false);
     }
-  }
+  };
+
   return (
     <>
 

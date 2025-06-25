@@ -1329,7 +1329,7 @@ export default function UpdateUsersdata() {
                           value={valuees.twitter_Link}
                           onChange={handlechangeing}
                         />
-                        <label htmlFor="firstName">Twitter</label>
+                        <label htmlFor="firstName">Enquieries email</label>
                         <span className="bar"></span>
                       </div>
                     </Grid>

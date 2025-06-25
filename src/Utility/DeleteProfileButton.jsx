@@ -7,8 +7,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 // ==============================|| HEADER PROFILE - PROFILE TAB ||============================== //
 // import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import { axiosInstance } from 'Utility/Api';
-import { toastifySuccess } from 'Utility/Utility';
 import { useNavigate } from '../../node_modules/react-router-dom/dist/index';
+import { toastifySuccess } from './Utility';
 const DeleteProfileButton = () => {
     const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -21,8 +21,8 @@ const DeleteProfileButton = () => {
         if (res?.data?.status == 200) {
           setLoading(false)
           toastifySuccess("Your Account Deleted Successfully !!")
-          localStorage.clear();
           navigate('/');
+          localStorage.clear();
         } else {
           setLoading(false)
         }

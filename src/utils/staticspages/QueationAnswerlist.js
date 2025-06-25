@@ -382,58 +382,6 @@ export default function QueationAnswerlist() {
             </div>
           </Grid>
           <TableContainer component={Paper}>
-            {/* <Table sx={{ minWidth: 700 }} aria-label="customized table">
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell align="center">S.No.</StyledTableCell>
-                  <StyledTableCell align="center">Question</StyledTableCell>
-                  <StyledTableCell align="center">Answer</StyledTableCell>
-                  <StyledTableCell align="center">Action</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {filteredData.map((row, key) => (
-                  <StyledTableRow key={row._id}>
-                    <StyledTableCell component="th" scope="row" align="center">
-                      {key + 1}
-                    </StyledTableCell>
-                    <StyledTableCell align="center">{row.quetion}</StyledTableCell>
-                    <StyledTableCell align="center">{row.answer}</StyledTableCell>
-
-                    <StyledTableCell align="center">
-                      <div
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          gap: '11px'
-                        }}
-                      >
-                        <Button className="edit_btn_global action-btn d-block"
-                          onClick={() => { navigate(`/admin/utils/addqa`, { state: { data: row } }); }}
-                        >
-                          <Tooltip title="Edit">
-                            <ModeEditOutlineIcon />
-                          </Tooltip>
-                        </Button>
-                        <Button
-                          className="dlt_btn action-btn d-block"
-                          onClick={(e) => {
-                            singleDelete(e, row._id);
-                          }}
-                        >
-                          <Tooltip title="Delete">
-                            <DeleteOutlineIcon />
-                          </Tooltip>
-                        </Button>
-                      </div>
-                    </StyledTableCell>
-                  </StyledTableRow>
-                ))}
-              </TableBody>
-            </Table> */}
-
             <DndContext
               sensors={sensors}
               onDragEnd={handleDragEnd}
@@ -449,8 +397,7 @@ export default function QueationAnswerlist() {
                       <tr {...headerGroup.getHeaderGroupProps()}>
                       <th></th> 
                         {headerGroup.headers.map((column) => (
-                          <>
-                                                    
+                          <>                          
                           <th {...column.getHeaderProps()}>{column.render("Header")}</th>
                           </>
                         ))}

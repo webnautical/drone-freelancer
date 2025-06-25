@@ -81,6 +81,7 @@ import PilotList from 'staticspage/Pilotmap/PilotList';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import Newhome from 'staticspage/Home/Newhome';
+import SuccessPage from 'staticspage/SuccessPage';
 // import NotFound from 'Utility/NotFound';
 // const stripePromise = loadStripe('pk_test_51PPi6VKc8CNsxNnE0tXJjUGr8pPvuSzncsDVMjyzrXyguJK9prbJdKBfyvdWPNxRgNgYidtr2chDkRejRKZFN8F900yJb3JEhE');
 const stripePromise = loadStripe('pk_live_51PPi6VKc8CNsxNnEKl4sXhOlDWoWMkxk3dTzolMRrD61VAXVOX3JER5HZORGmEtmyTteHIHk8QwIMf3E0v6rczZB00COjSh9DL');
@@ -91,7 +92,7 @@ const root = createRoot(container);
 
 root.render(
   <BrowserRouter>
-    <LoadScript googleMapsApiKey="AIzaSyCX8PtZWvDsQC0qKsVvJ9vFj6rfo-OmHWM" libraries={libraries}>
+    <LoadScript googleMapsApiKey="AIzaSyCX8PtZWvDsQC0qKsVvJ9vFj6rfo-OmHWM" libraries={libraries} loadingElement={<div style={{ display: "none" }} />}>
 
       <Elements stripe={stripePromise}>
         <ReduxProvider store={stores}>
@@ -135,6 +136,7 @@ root.render(
             <Route path="/page" element={<Front cmp={FormIndex} />} />
             <Route path="/forgot" element={<ForgotPassword />} />
             {/* <Route path="*" element={<NotFound />} /> */}
+            <Route path="/success" element={<Front cmp={SuccessPage} />} />
 
           </Routes>
           <CookiesPopup />

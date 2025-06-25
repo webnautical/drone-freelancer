@@ -1085,9 +1085,12 @@ export default function Profileedit() {
                               <div className="round">
                                 {' '}
                                 <input type="file" onChange={handleImageChange11} />
-                                <ModeEditIcon />
+                                <div>
+                                  <ModeEditIcon />
+                                </div>
                               </div>
                             </div>
+                            <p className='mt-2'>For your Protile Picture, please choose a picture of <br /> yourself, not your  logo, or a drone. Other pictures <br /> may be moved to your portfolio section </p>
                           </div>
 
                           <div className='mb-4' style={{ backgroundColor: '#e8f7ff', padding: '10px', borderRadius: '5px' }}>
@@ -1452,17 +1455,17 @@ export default function Profileedit() {
                                 <Accordion.Item eventKey="1">
                                   <Accordion.Header>Extra categories purchased</Accordion.Header>
                                   <Accordion.Body>
-                             
-                              {
-                                category?.length > 0?
-                                    <ul className='m-0'>
-                                      {category?.length > 0 ? category?.map((item, i) => (
-                                        <li key={i}>{item}</li>
-                                      )) : <li></li>}
-                                    </ul>
-                                    :
-                                    <p className='mb-0'>You haven&apos;t purchased any extra category yet</p>
-                              }
+
+                                    {
+                                      category?.length > 0 ?
+                                        <ul className='m-0'>
+                                          {category?.length > 0 ? category?.map((item, i) => (
+                                            <li key={i}>{item}</li>
+                                          )) : <li></li>}
+                                        </ul>
+                                        :
+                                        <p className='mb-0'>You haven&apos;t purchased any extra category yet</p>
+                                    }
                                   </Accordion.Body>
                                 </Accordion.Item>
                               </Accordion>
@@ -1867,7 +1870,7 @@ export default function Profileedit() {
                           </Select>
                         </FormControl>
                       </Grid>
-                     
+
                     </Grid>
                   ) : (
                     <div className="all_cat_box">

@@ -27,7 +27,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 
 import Succespostjob from '../assets/images/success_celebratin.gif';
 import config from 'config';
-// import { DatePicker, Space } from 'antd';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { getAllLocatData, getCurrentDate, getMaxDate, toastifyError } from 'Utility/Utility';
@@ -47,13 +46,18 @@ const MenuProps = {
 };
 
 const steps = ['Location', 'Choose Category', 'Timeframe', 'Attachements'];
-export default function PostJob() {
+
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import LoginCom from 'auth-components/LoginCom';
+import RegisterFirst from 'auth-components/RegisterFirst';
+export default function PostJob({ jobPostType }) {
   const details = useLocation();
   const catDetails = details.state ? details.state.details : null;
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
-  // -------------------------catgory--------------------------
   const [loading, setLoading] = useState(false);
   const [imagePreviews, setImagePreviews] = useState([]);
   const [subCategoryList, setSubCategoryList] = useState([]);
@@ -62,6 +66,8 @@ export default function PostJob() {
   const [itsForAList, setItsForAList] = useState([]);
   const [needYouThereForList, setNeedYouThereForList] = useState([]);
   const [InspectA, setInspectA] = useState([]);
+
+  const [authModal, setAuthModal] = useState(false)
   const [value, setValue] = useState({
     location: '',
     street: '',
@@ -218,7 +224,8 @@ export default function PostJob() {
     try {
       setValue((prevValue) => ({
         ...prevValue,
-        location: value
+        location: value,
+        street: value
       }));
     } catch (error) {
       console.error('Error selecting address', error);
@@ -227,26 +234,27 @@ export default function PostJob() {
   const handleLocationChange = (value) => {
     setValue((prevValue) => ({
       ...prevValue,
-      location: value
-    }));
-  };
-
-  const handleLocationChange1 = (value) => {
-    setValue((prevValue) => ({
-      ...prevValue,
+      location: value,
       street: value
     }));
   };
-  const handleLocationSelect1 = async (value) => {
-    try {
-      setValue((prevValue) => ({
-        ...prevValue,
-        street: value
-      }));
-    } catch (error) {
-      console.error('Error selecting address', error);
-    }
-  };
+
+  // const handleLocationChange1 = (value) => {
+  //   setValue((prevValue) => ({
+  //     ...prevValue,
+  //     street: value
+  //   }));
+  // };
+  // const handleLocationSelect1 = async (value) => {
+  //   try {
+  //     setValue((prevValue) => ({
+  //       ...prevValue,
+  //       street: value
+  //     }));
+  //   } catch (error) {
+  //     console.error('Error selecting address', error);
+  //   }
+  // };
 
   const getSubCat = async () => {
     try {
@@ -287,9 +295,6 @@ export default function PostJob() {
     getcategoryData();
     getSubCat();
   }, []);
-  // const isStepOptional = (step) => {
-  //   return step === 1;
-  // };
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
@@ -391,6 +396,8 @@ export default function PostJob() {
         });
       }
     }
+
+    activeStep === steps.length - 1 ? 'Finish' : 'Next'
   };
 
   useEffect(() => {
@@ -464,6 +471,15 @@ export default function PostJob() {
         },
         attachment: value.attachment
       };
+      if (!getAllLocatData()?.jwt) {
+        if (jobPostType === "front") {
+          localStorage.setItem("jobData", JSON.stringify(data));
+          setLoading(false)
+          // navigate("/login", { state: "home-job-post" });
+          setAuthModal(true)
+          return false
+        }
+      }
       try {
         const res = await fetch(`${config.url}/user/createJobByClient`, {
           method: 'POST',
@@ -472,7 +488,6 @@ export default function PostJob() {
         });
         const resultdata = await res.json();
         if (resultdata.status == 200) {
-          // toastifySuccess('Post Created SuccessFully !!');
           setLoading(false);
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
           setSkipped(newSkipped);
@@ -504,9 +519,6 @@ export default function PostJob() {
     });
   };
 
-  // const handleReset = () => {
-  //   setActiveStep(0);
-  // };
   const validateFile = (file) => {
     const allowedTypes = ['image/jpeg', 'image/png', ' image/jpg', 'application/pdf'];
     const maxSize = 2 * 1024 * 1024; // 2MB
@@ -561,13 +573,13 @@ export default function PostJob() {
     componentRestrictions: { country: 'AU' }
   };
 
+  const [authFormType, setAuthFormType] = useState("")
+
   return (
     <Box sx={{ width: '100%' }}>
       <Grid container sx={{ justifyContent: 'center' }}>
         <Grid item xl={12} lg={12} md={12} sm={12} xs={12} sx={{ mt: 3.25 }}>
-          <Typography variant="h5" className="global_top_head">
-            Post A Job
-          </Typography>
+          <Typography variant="h5" className="global_top_head">Post A Job</Typography>
         </Grid>
         <Grid className="mt-0 pt-4" item xl={12} lg={12} md={12} sm={12} xs={12}>
           <Stepper activeStep={activeStep} className="mt-0 top_bar_profile top_box ">
@@ -589,10 +601,6 @@ export default function PostJob() {
                   </Link>
                 </div>
               </Typography>
-              {/* <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }} className="">
-                <Box sx={{ flex: '1 1 auto' }} />
-                <Button onClick={handleReset}>Back To Dashboard</Button>
-              </Box> */}
             </React.Fragment>
           ) : (
             <React.Fragment>
@@ -645,7 +653,8 @@ export default function PostJob() {
                             <span className="errmsg">{error.location}</span>
                           </div>
                         </Grid>
-                        <Grid item xl={12} lg={12} md={8} sm={8} xs={12}>
+
+                        {/* <Grid item xl={12} lg={12} md={8} sm={8} xs={12}>
                           <div className="location_search group  error">
                             <PlacesAutocomplete
                               value={value.street}
@@ -678,25 +687,8 @@ export default function PostJob() {
                             <span className="bar"></span>
                             <span className="errmsg">{error.street}</span>
                           </div>
-                          {/* <div className="group  error">
-                            <input
-                              className="inputMaterial "
-                              type="text"
-                              placeholder="Start Typing..."
-                              value={value.street}
-                              name="street"
-                              onChange={handleInputChange}
-                            />
-                            <label htmlFor="firstName">Address</label>
-                            <span className="bar"></span>
-                            <span className="errmsg mt-4 d-block">{error.street}</span>
-                          </div> */}
-                        </Grid>
-
-                        {/* <Grid item xl={12} lg={12} md={8} sm={8} xs={12}>
-
-                          <p className='alert_text'><b>Skip </b>to save progress or click <b>(Next)</b> to finish Posting Your Job!</p>
                         </Grid> */}
+
                       </Grid>
                     </Grid>
                   </Grid>
@@ -1067,11 +1059,9 @@ export default function PostJob() {
                   Back
                 </Button>
                 <Box sx={{ flex: '1 1 auto' }} />
-                {/* {isStepOptional(activeStep) && ( */}
                 <Button className="reset_btn" color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
                   Skip
                 </Button>
-                {/* )} */}
                 {loading ? (
                   <Button className="global_btn">
                     <div className="spinner-border spinner-border-sm me-1" role="status"></div> Loading ...
@@ -1086,6 +1076,30 @@ export default function PostJob() {
           )}
         </Grid>
       </Grid>
+      <Dialog
+        open={authModal}
+        onClose={() => setAuthModal(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        BackdropProps={{ style: { backdropFilter: 'blur(5px)' } }}
+        fullscreen
+      >
+          <div className='text-end'>
+            <button className='post-auth-modal-close' onClick={()=>setAuthModal(false)}><i className='fa fa-times'></i></button>
+          </div>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+
+            {
+              authFormType === "register" ?
+                <RegisterFirst setAuthFormType={setAuthFormType} />
+                :
+                <LoginCom loginType={"when-poster-post-job"} setAuthFormType={setAuthFormType} />
+            }
+
+          </DialogContentText>
+        </DialogContent>
+      </Dialog>
     </Box>
   );
 }

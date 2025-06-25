@@ -130,6 +130,7 @@ const Signup = () => {
     const isChecked = e.target.checked;
     setReceiveEmail(isChecked)
   }
+
   return (
     <div className="signup_enter user_enter">
       <Container>

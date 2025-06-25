@@ -19,15 +19,17 @@ import pilotimg from '../../assets/images/userselect (2).png';
 
 import Typography from '@mui/material/Typography';
 
-import { encryptLocalStorageData, toastifyError, toastifySuccess } from 'Utility/Utility';
+import { encryptLocalStorageData, jobPostExportFun, toastifyError, toastifySuccess } from 'Utility/Utility';
 import { axiosInstance } from 'Utility/Api';
 
 const Signuptwo = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const userRecord = location.state;
+  
   const [password] = useState(userRecord.password);
   const [email] = useState(userRecord.email);
+
   const [first_name, setFirst_name] = useState('');
   const [last_name, setLast_name] = useState('');
   const [role, setRole] = useState('');
@@ -141,12 +143,16 @@ const Signuptwo = () => {
           toastifySuccess('Account Created');
         }
         if (res?.data?.userrecord?.role == 'Poster') {
-          if(userRecord?.job_title){
-            navigate('/page?v=business-employment-portal', {state : {portalData : userRecord}})
+          if(localStorage?.getItem("jobData")){
+            jobPostExportFun(navigate)
           }else{
-            navigate(`/user/dashboard/default`);
+            if(userRecord?.job_title){
+              navigate('/page?v=business-employment-portal', {state : {portalData : userRecord}})
+            }else{
+              navigate(`/user/dashboard/default`);
+            }
+            toastifySuccess('Account Created');
           }
-          toastifySuccess('Account Created');
         }
       } else if (res?.data.message === 'Email already in use!') {
         toastifyError('This Email is already Register');
@@ -158,7 +164,6 @@ const Signuptwo = () => {
       setLoading(false)
     }
   }
-
 
   return (
     <div className="sign_up_two signup_enter user_enter">

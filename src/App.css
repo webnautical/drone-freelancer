@@ -570,3 +570,20 @@ overflow: hidden;
 
 
 
+.post-a-job-home .global_top_head {
+    color: #0a4f9d;
+}
+
+.post-a-job-home .global_btn{
+  color:#fff
+}
+
+.post-a-job-home .check_select_outer{ margin-top: 0px!important;}
+ 
+.post-a-job-home .errmsg{margin-top: 10px!important;    display: inline-block!important;}
+.post-auth-modal-close{
+  background-color: transparent;
+  border: none;
+  outline: none;
+  width: 30px;
+}

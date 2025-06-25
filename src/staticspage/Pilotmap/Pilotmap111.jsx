@@ -534,6 +534,7 @@ const Pilotmap = () => {
                   </GoogleMap>
                 </div>
               </Col>
+              
             </Row>
           </Container>
         </section>
