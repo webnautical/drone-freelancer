@@ -1083,6 +1083,7 @@ export default function PostJob({ jobPostType }) {
         aria-describedby="alert-dialog-description"
         BackdropProps={{ style: { backdropFilter: 'blur(5px)' } }}
         fullscreen
+        className="pt-0"
       >
           <div className='text-end'>
             <button className='post-auth-modal-close' onClick={()=>setAuthModal(false)}><i className='fa fa-times'></i></button>

@@ -120,6 +120,9 @@ const LoginCom = ({ loginType, setAuthFormType }) => {
         <>
             <form onSubmit={handlelogin} method='post'>
                 <Row>
+                    <div className="col-12">
+                        <p className='alert-sign-up-text'> <i className="fa-solid fa-circle-info"></i> One last step! Log in or register to instantly receive quotes from pilots in your area.</p>
+                    </div>
                     <h1 className='h1_title'>Sign in</h1>
                     <p>New User ?{' '}<span className="hightlight_txt">
                         {

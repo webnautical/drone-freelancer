@@ -44,6 +44,9 @@ const Signuptwo = () => {
     password: password,
     role: role,
     receive_email: userRecord?.receiveEmail,
+    location: userRecord?.location,
+    lat: userRecord?.lat,
+    long: userRecord?.long,
   };
 
   const [randomOTP, setRandomOTP] = useState('')

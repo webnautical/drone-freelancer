@@ -1,75 +1,37 @@
-// import { StrictMode } from 'react';
+
 
 import { createRoot } from 'react-dom/client';
-
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
-// scroll bar
-
 import 'simplebar/src/simplebar.css';
-
-// third-party
-
 import { Provider as ReduxProvider } from 'react-redux';
-
-// apex-chart
-
 import 'assets/third-party/apex-chart.css';
-
 import LoginAdmin from './LoginAdmin';
-
 import LoginUser from './pilot/Login';
-
 import Mainpage from 'staticspage/Mainpage';
-
-//static pages
-
 import About from './staticspage/Aboutus/Aboutus';
-
 import Privacy from './staticspage/privacy/Privacy';
-
 import TermsAndcondition from './staticspage/privacy/Temscondition';
-
 import Register from './staticspage/createaccouont/Signup';
-
 import Registers from './staticspage/signup2/Signuptwo';
-
 import Faq from './staticspage/FAQ/Faq';
-
 import Pricing from './staticspage/Pricing/Pricing';
-
 import AnimalRescue from './staticspage/Lostpet/Lostpet';
-
 // project import
-
 import App from './App';
-
 import { store } from 'store';
-
 import { stores } from 'stores';
-
 import reportWebVitals from './reportWebVitals';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import Pilotmap from 'staticspage/Pilotmap/Pilotmap111';
-
 import Front from 'Front';
-
 import Marketplace from 'staticspage/Marketplace/Marketplace';
-
 import { ToastContainer } from 'react-toastify';
-
 import 'react-toastify/dist/ReactToastify.css';
-
 import ForgotPassword from 'staticspage/Auth/ForgotPassword';
-
 import MarketPlaceDetails from 'staticspage/Marketplace/MarketPlaceDetails';
 import CookiesPopup from 'staticspage/Cookies/CookiesPopup';
 // ==============================|| MAIN - REACT DOM RENDER  ||============================== //
-
 import { LoadScript } from '@react-google-maps/api';
-
 import { libraries } from 'Utility/Utility';
 import ProfileDetails from 'staticspage/Pilotmap/ProfileDetails';
 import Contactus from 'staticspage/Contactus/Contactus';
@@ -77,7 +39,6 @@ import Whydronmatchmaker from 'staticspage/privacy/Whydronmatchmaker';
 import Howitwork from 'staticspage/privacy/Howitwork';
 import FormIndex from 'staticspage/Form/index';
 import PilotList from 'staticspage/Pilotmap/PilotList';
-
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import Newhome from 'staticspage/Home/Newhome';
@@ -85,11 +46,8 @@ import SuccessPage from 'staticspage/SuccessPage';
 // import NotFound from 'Utility/NotFound';
 // const stripePromise = loadStripe('pk_test_51PPi6VKc8CNsxNnE0tXJjUGr8pPvuSzncsDVMjyzrXyguJK9prbJdKBfyvdWPNxRgNgYidtr2chDkRejRKZFN8F900yJb3JEhE');
 const stripePromise = loadStripe('pk_live_51PPi6VKc8CNsxNnEKl4sXhOlDWoWMkxk3dTzolMRrD61VAXVOX3JER5HZORGmEtmyTteHIHk8QwIMf3E0v6rczZB00COjSh9DL');
-
 const container = document.getElementById('root');
-
 const root = createRoot(container);
-
 root.render(
   <BrowserRouter>
     <LoadScript googleMapsApiKey="AIzaSyCX8PtZWvDsQC0qKsVvJ9vFj6rfo-OmHWM" libraries={libraries} loadingElement={<div style={{ display: "none" }} />}>
@@ -101,7 +59,6 @@ root.render(
             <Route path="/user/*" element={<App />} />
           </Routes>
         </ReduxProvider>
-
 
         <ReduxProvider store={store}>
           <Routes>

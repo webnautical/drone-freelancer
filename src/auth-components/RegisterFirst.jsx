@@ -16,8 +16,11 @@ import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import posterimg from '../assets/images/userselect (1).png';
 import pilotimg from '../assets/images/userselect (2).png';
 import mailicon from '../assets/images/mail.png';
-
-const RegisterFirst = ({setAuthFormType}) => {
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+const searchOptions = {
+  componentRestrictions: { country: 'AU' }
+};
+const RegisterFirst = ({ setAuthFormType }) => {
     const [currentForm, setCurrentForm] = useState("first")
     const navigate = useNavigate();
 
@@ -33,6 +36,12 @@ const RegisterFirst = ({setAuthFormType}) => {
     const [otp, setOtp] = useState(['', '', '', '', '', '']);
     const [loading, setLoading] = useState(false);
 
+    const [otherFormData, setOtherFormData] = useState({
+        location: "",
+        lat: "",
+        long: ""
+    })
+
     const userData = {
         first_name: first_name,
         last_name: last_name,
@@ -40,6 +49,33 @@ const RegisterFirst = ({setAuthFormType}) => {
         password: password,
         role: role,
         receive_email: receiveEmail,
+        location: otherFormData?.location,
+        lat: otherFormData?.lat,
+        long: otherFormData?.long,
+    };
+
+
+    const handleLocationSelect = async (value) => {
+        try {
+            const results = await geocodeByAddress(value);
+            const latLng = await getLatLng(results[0]);
+            setOtherFormData((prevValue) => ({
+                ...prevValue,
+                location: value,
+                lat: latLng.lat,
+                long: latLng.lng,
+            }));
+        } catch (error) {
+            console.error('Error selecting address', error);
+        }
+    };
+
+
+    const handleLocationChange = (value) => {
+        setOtherFormData((prevValue) => ({
+            ...prevValue,
+            location: value
+        }));
     };
 
     const [randomOTP, setRandomOTP] = useState('')
@@ -158,6 +194,15 @@ const RegisterFirst = ({setAuthFormType}) => {
     }
 
     const handleregistration = () => {
+        if (otherFormData?.location.trim() == '') {
+            setError((prevValues) => {
+                return { ...prevValues, ['location']: 'Required.' };
+            });
+        } else {
+            setError((prevValues) => {
+                return { ...prevValues, ['location']: true };
+            });
+        }
         if (email.trim() == '') {
             setError((prevValues) => {
                 return { ...prevValues, ['email']: 'Required.' };
@@ -261,9 +306,46 @@ const RegisterFirst = ({setAuthFormType}) => {
             {
                 currentForm === "first" ?
                     <Row>
+                         <div className="col-12">
+                        <p className='alert-sign-up-text'> <i className="fa-solid fa-circle-info"></i> One last step! Log in or register to instantly receive quotes from pilots in your area.</p>
+                    </div>
                         <p>Step 1 of 2</p>
                         <h1 className='h1_title mb-5'>Create an account </h1>
 
+                        <Col md="12" className="mb-2">
+                            <div className="location_search group  error">
+                                <PlacesAutocomplete
+                                    value={otherFormData.location}
+                                    searchOptions={searchOptions}
+                                    onChange={handleLocationChange}
+                                    onSelect={handleLocationSelect}
+                                >
+                                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                        <div className="location_input">
+                                            <span className="top_text">Location</span>
+                                            <input className='mb-0' {...getInputProps({ placeholder: 'Type address' })} />
+                                            <div className="autocomplete-dropdown-container">
+                                                {loading ? <div className="mt-2">Loading...</div> : null}
+                                                {suggestions?.map((suggestion) => {
+                                                    const style = {
+                                                        backgroundColor: suggestion.active ? 'whitesmoke' : '#fff',
+                                                        padding: '10px 10px',
+                                                        cursor: 'pointer'
+                                                    };
+                                                    return (
+                                                        <div {...getSuggestionItemProps(suggestion, { style })} key={suggestion.placeId}>
+                                                            {suggestion.description}
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    )}
+                                </PlacesAutocomplete>
+                                <span className="bar"></span>
+                                <span className="errmsg">{error.location}</span>
+                            </div>
+                        </Col>
                         <Col md="12" className="mb-3">
                             <div className="group  error pb-0 mb-2">
                                 <input
