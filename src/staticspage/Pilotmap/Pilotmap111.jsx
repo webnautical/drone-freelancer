@@ -182,7 +182,6 @@ const Pilotmap = () => {
   };
 
   const handleMarkerClick = (event, users, position) => {
-    console.log(users)
     if (users.length === 1) {
       setSelectedUsers(users[0]);
     } else {
@@ -307,9 +306,24 @@ const Pilotmap = () => {
                   <h1 className='h1_title'>
                     <img src={Blackdrone} alt="logo" style={{ maxWidth: '', maxHeight: '' }} /> Find a local pilot
                   </h1>
+
                   <div dangerouslySetInnerHTML={{ __html: getPageData?.content }} />
+
+                  <div className="d-md-flex gap-3 mb-3">
+                    <div className="pilot-list-plan-box">
+                      <img src={markerYellow} alt="" />
+                      <h6 className="m-0">Licenced Pilots</h6>
+                    </div>
+                    <div className="pilot-list-plan-box">
+                      <img src={markerBlue} alt="" />
+                      <h6 className="m-0">Unlicenced Pilots</h6>
+                    </div>
+                  </div>
+
+
                   <div className="search_box_pilot">
                     <Row>
+
                       <Col md={12}>
                         <PlacesAutocomplete value={address} onChange={handleChange} onSelect={handleSelect}>
                           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
@@ -335,6 +349,7 @@ const Pilotmap = () => {
                           )}
                         </PlacesAutocomplete>
                       </Col>
+
                       <Col md={12} className="mt-3">
                         <FormControl sx={{ minWidth: 120 }} className="normal_select pilot_map_select">
                           <InputLabel id="demo-multiple-checkbox-label">Choose Categories</InputLabel>
@@ -362,6 +377,7 @@ const Pilotmap = () => {
                           </Select>
                         </FormControl>
                       </Col>
+
                       <Col md={12} className="mt-4 text-end">
                         <button className="global_btn reset_btn mx-2" onClick={resetSearch}>Reset</button>
                         {loading ? (
@@ -394,11 +410,14 @@ const Pilotmap = () => {
                                   </div>
                                 </div>
                                 <div className="profilepilot_details">
-                                  <h2 className="text-uppercase">{item && `${item?.element.first_name + ' ' + item?.element.last_name} `} {item && item?.element.preferred ? (
-                                    <span className="premium_pilott">
-                                      <img src={premiumimg} alt="" />
-                                    </span>
-                                  ) : null}</h2>
+                                  <h2 className="text-uppercase">
+                                    {item && item?.element.preferred ? (
+                                       <img src={markerYellow} alt="" style={{ height: "25px" }} />
+                                    ) :  <span className="premium_pilott">
+                                <img src={markerBlue} alt="" style={{ height: "25px" }} />
+                              </span>}
+                                    {item && `${item?.element.first_name + ' ' + item?.element.last_name} `}
+                                  </h2>
                                   <p>{item && `${item?.element?.location} `}</p>
                                 </div>
 
@@ -534,7 +553,7 @@ const Pilotmap = () => {
                   </GoogleMap>
                 </div>
               </Col>
-              
+
             </Row>
           </Container>
         </section>

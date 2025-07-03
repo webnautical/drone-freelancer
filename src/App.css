@@ -682,3 +682,14 @@ main {
   font-size: 13px;
   font-weight: bold;
 }
+
+.pilot-list-plan-box{
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.pilot-list-plan-box img{ 
+  height: 30px;
+}

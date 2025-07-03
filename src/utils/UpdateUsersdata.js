@@ -155,12 +155,14 @@ export default function UpdateUsersdata() {
       files.forEach((file) => {
         if (validateFile(file)) {
           setPreviewQualification((prevFiles) => [...prevFiles, file?.name]);
-          const reader = new FileReader();
-          reader.readAsDataURL(file);
-          reader.onloadend = () => {
-            const base64Data = reader.result;
-            setQualificationAttachement((prevFiles) => [...prevFiles, base64Data]);
-          };
+          // const reader = new FileReader();
+          // reader.readAsDataURL(file);
+          // reader.onloadend = () => {
+          //   const base64Data = reader.result;
+          //   setQualificationAttachement((prevFiles) => [...prevFiles, base64Data]);
+          // };
+          setQualificationAttachement((prevFiles) => [...prevFiles, file]);
+
         }
       });
     }
@@ -188,9 +190,11 @@ export default function UpdateUsersdata() {
   const onChooseFile = () => {
     inputRef.current.click();
   };
-  const removeFile = (index) => {
+  const [removedMedia, setRemovedMedia] = useState([])
+  const removeFile = (index, file) => {
     setQualificationAttachement((prevFiles) => prevFiles.filter((_, i) => i !== index));
     setPreviewQualification((prevFiles) => prevFiles.filter((_, i) => i !== index));
+    setRemovedMedia((prevFiles) => [...prevFiles, file]);
   };
 
   useEffect(() => {
@@ -540,7 +544,7 @@ export default function UpdateUsersdata() {
 
   const checkValidation = () => {
     setAddUpdateApiCallCount(addUpdateApiCallCount + 1);
-    const { first_name, location1, last_name, company, state, Suburb, phone, flight_time_limit, qualification_expiry } = valuees;
+    const { first_name, location1, last_name, company, state, Suburb, phone, flight_time_limit } = valuees;
     const australiaPhoneNumberRegex = /^(?:\+61|0)(?:2|3|4|7|8)(?:\d{8}|\d{9})$/;
 
     if (activeStep == 0) {
@@ -669,15 +673,15 @@ export default function UpdateUsersdata() {
           return { ...prevValues, ['flight_time_limit']: true };
         });
       }
-      if (qualification_expiry == '') {
-        setError((prevValues) => {
-          return { ...prevValues, ['qualification_expiry']: 'required *' };
-        });
-      } else {
-        setError((prevValues) => {
-          return { ...prevValues, ['qualification_expiry']: true };
-        });
-      }
+      // if (qualification_expiry == '') {
+      //   setError((prevValues) => {
+      //     return { ...prevValues, ['qualification_expiry']: 'required *' };
+      //   });
+      // } else {
+      //   setError((prevValues) => {
+      //     return { ...prevValues, ['qualification_expiry']: true };
+      //   });
+      // }
       if (windspeed == '') {
         setError((prevValues) => {
           return { ...prevValues, ['maximum_wind_speed']: 'required *' };
@@ -723,7 +727,6 @@ export default function UpdateUsersdata() {
       navigate('/user/dashboard/default');
     }
   };
-  console.log(error, "error");
   const {
     first_name,
     last_name,
@@ -835,6 +838,31 @@ export default function UpdateUsersdata() {
       setSubmitLoading(false);
     }
     if (activeStep === 2) {
+      try {
+        const fd = new FormData();
+        fd.append('userId', userDatas?._id);
+        qualificationAttachement.forEach((file) => {
+          fd.append("media", file);
+        });
+        removedMedia.forEach((file) => {
+          fd.append("removedMedia", file);
+        });
+        const res = await fetch(`${config.url}/user/updateMedia`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.jwt}`,
+          },
+          body: fd,
+        });
+        const data = await res.json();
+        if (res.ok && data?.status === 200) {
+          console.log("Success:", data);
+        } else {
+          console.error("Server error:", data);
+        }
+      } catch (err) {
+        console.error("Network / parsing error:", err);
+      }
       const updatedUser = {
         lisencs_type: licence,
         qualification_expiry: valuees.qualification_expiry,
@@ -846,32 +874,39 @@ export default function UpdateUsersdata() {
         maximum_wind_speed: windspeed,
         addition_services: valuees.addition_services,
         radio_certificate: valuees.radio_certificate,
-        attachment: qualificationAttachement,
+        // attachment: qualificationAttachement,
       };
 
-      await fetch(`${config.url}/user/addUserQualification`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${JwtToken}`,
-        },
-        body: JSON.stringify(updatedUser),
-      })
-        .then((res) => {
-          return res.json();
+      try {
+        await fetch(`${config.url}/user/addUserQualification`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${JwtToken}`,
+          },
+          body: JSON.stringify(updatedUser),
         })
-        .then((data) => {
-          if (data.status === 200) {
-            toastifySuccess("User Qualification Updated Successfully");
-            setActiveStep((prevActiveStep) => prevActiveStep + 1);
-            setActiveStep(2);
-            setSubmitLoading(false);
-          } else {
-            toastifyError("User Qualification Not Updated");
-            setActiveStep(2);
-            setSubmitLoading(false);
-          }
-        });
+          .then((res) => {
+            return res.json();
+          })
+          .then((data) => {
+            if (data.status === 200) {
+              toastifySuccess("User Qualification Updated Successfully");
+              setActiveStep((prevActiveStep) => prevActiveStep + 1);
+              setActiveStep(2);
+              setSubmitLoading(false);
+            } else {
+              toastifyError("User Qualification Not Updated");
+              setActiveStep(2);
+              setSubmitLoading(false);
+            }
+          });
+      } catch (error) {
+        toastifyError("Something went wrong, try again letter");
+        setActiveStep(2);
+        setSubmitLoading(false);
+      }
+
     }
     if (activeStep === 3) {
       const updatedUser = {
@@ -967,6 +1002,7 @@ export default function UpdateUsersdata() {
   // const onChooseFile = () => {
   //   inputRef.current.click();
   // };
+
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -1462,7 +1498,7 @@ export default function UpdateUsersdata() {
                                 <div className="d-flex align-items-center">
                                   <p className="m-0">{file.startsWith('http') ? `attachement ${index + 1}` : file}</p>
                                 </div>
-                                <button onClick={() => removeFile(index)}>
+                                <button onClick={() => removeFile(index, file)}>
                                   <span className="material-symbols-rounded">
                                     <DeleteOutlineIcon />
                                   </span>
@@ -1535,8 +1571,6 @@ export default function UpdateUsersdata() {
                         <span style={{ position: 'absolute', top: '10px', background: '#fff', fontSize: '17px', padding: '2px 6px' }}>
                           {valuees.qualification_expiry}
                         </span>
-                        <span className="errmsg">{error.qualification_expiry}</span>
-
                       </div>
                     </Grid>
                     <Grid item xl={3} lg={4} md={4} sm={6} xs={12}>

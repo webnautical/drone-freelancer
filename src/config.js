@@ -13,9 +13,7 @@ const config = {
   mode: 'light',
   presetColor: 'default',
   themeDirection: 'ltr',
-  // url: 'http://localhost:5000',
   url: apiBaseURL(),
-  // url: 'http://170.64.131.134',
   basename: '/admin',
   basenameuser: '/user'
 };

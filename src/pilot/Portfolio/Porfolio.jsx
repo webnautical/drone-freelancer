@@ -227,7 +227,7 @@ const Porfolio = ({ portfolioMethod, setPortfolioLoading, setPortfolioMethod }) 
 
   const validateFile = (file) => {
     const allowedTypes = ['image/jpeg', 'image/png', ' image/jpg'];
-    const maxSize = 2 * 1024 * 1024; // 2MB
+    const maxSize = 20 * 1024 * 1024;
     if (!allowedTypes.includes(file.type)) {
       setError((prevValues) => {
         return { ...prevValues, ['img']: 'Invalid file type. Please select a valid image (JPG, JPEG, PNG).' };
@@ -283,13 +283,13 @@ const Porfolio = ({ portfolioMethod, setPortfolioLoading, setPortfolioMethod }) 
         <div className=" ">
           <Grid container spacing={2} className="mt-2">
             <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className="px-0 mb-0">
-            <div className='mb-5' style={{ backgroundColor: '#e8f7ff', padding: '10px', borderRadius: '5px' }}>
-                            <p className="mb-0">
-                            Show off your skills and land your dream project! Use the form below to build your portfolio. Or click <b>&apos;Next&apos;</b> to save progress and come back anytime.
-                            </p>
-                          </div>
+              <div className='mb-5' style={{ backgroundColor: '#e8f7ff', padding: '10px', borderRadius: '5px' }}>
+                <p className="mb-0">
+                  Show off your skills and land your dream project! Use the form below to build your portfolio. Or click <b>&apos;Next&apos;</b> to save progress and come back anytime.
+                </p>
+              </div>
               <FormControl sx={{ m: 1, minWidth: 120 }} className="manage_space normal_select mb-0">
-          
+
                 <span className="top_text">Type of Project</span>
                 <Select
                   value={value.type}
@@ -324,7 +324,7 @@ const Porfolio = ({ portfolioMethod, setPortfolioLoading, setPortfolioMethod }) 
 
             <Grid item xl={12} lg={12} md={12} sm={12} xs={12} className="px-0 mb-0">
               <div className="dec_text">
-                <h2 style={{fontSize:'12px', color:'#747474'}}>Project Description </h2>
+                <h2 style={{ fontSize: '12px', color: '#747474' }}>Project Description </h2>
                 <Textarea placeholder="Type Here" name="description" onChange={handleInputChange} value={value.description} />
                 <span className="errmsg">{error.description}</span>
               </div>
@@ -380,7 +380,7 @@ const Porfolio = ({ portfolioMethod, setPortfolioLoading, setPortfolioMethod }) 
                         <label htmlFor="iamgesID" className="global_file_upload_deisgn">
                           <InsertPhotoIcon />
                           <p className='m-0 p-0'>Upload Document</p>
-                          <p className='m-0 p-0' style={{ fontSize: '12px' }}>Image (JPG,JPEG, PNG) and file size less than 2MB.</p>
+                          <p className='m-0 p-0' style={{ fontSize: '12px' }}>Image (JPG,JPEG, PNG) and file size less than 20MB.</p>
                           <input type="file" id="iamgesID" multiple onChange={handleImageChange} />
                         </label>
                       </div>
@@ -388,12 +388,12 @@ const Porfolio = ({ portfolioMethod, setPortfolioLoading, setPortfolioMethod }) 
                     <div className="main_global_upload preview_upload">
                       {imagePreviews.map((preview, index) => (
                         <>
-                     <div className='pre_upload_remove'>
-                     <img key={index} src={preview} alt={`Preview ${index}`} />
-                          <button onClick={() => removeFileItem(index)}>
-                           <DeleteOutlineIcon/>
-                          </button>
-                     </div>
+                          <div className='pre_upload_remove'>
+                            <img key={index} src={preview} alt={`Preview ${index}`} />
+                            <button onClick={() => removeFileItem(index)}>
+                              <DeleteOutlineIcon />
+                            </button>
+                          </div>
                         </>
                       ))}
                     </div>

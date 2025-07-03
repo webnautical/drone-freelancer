@@ -9,7 +9,6 @@ import Select from "@mui/material/Select";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { axiosInstance } from "Utility/Api";
 import { defaultUserIMG } from "Utility/Utility";
-// import Accordion from 'react-bootstrap/Accordion';
 import Pagination from "@mui/material/Pagination";
 import {
   useLocation,
@@ -18,7 +17,8 @@ import {
 } from "../../../node_modules/react-router-dom/dist/index";
 import { State } from "country-state-city";
 import ThereAreNoData from "Utility/ThereAreNoData";
-// import Breacrumb from 'staticspage/Header/Breacrumb';
+import markerBlue from '../../assets/images/markerBlue.png';
+import markerYellow from '../../assets/images/markerYellow.png';
 const PilotList = () => {
   const navigate = useNavigate();
   const stateStr = useParams().state;
@@ -142,7 +142,7 @@ const PilotList = () => {
       const res = await axiosInstance.post("/admin/getallStaticPagedata");
       if (res?.data?.status === 200) {
         const parts = location?.split('/');
-        const filterPageName =  parts?.length > 1 ? parts[1] : '';
+        const filterPageName = parts?.length > 1 ? parts[1] : '';
         const page = res?.data?.getdata.filter(
           (item) => item.url === filterPageName
         )[0];
@@ -165,7 +165,7 @@ const PilotList = () => {
     const parts = location.split('/');
     if (parts.length > 2) {
       const newString = parts.slice(2).join('/');
-      if(newString !== "location"){
+      if (newString !== "location") {
         return newString
       }
     } else {
@@ -217,18 +217,18 @@ const PilotList = () => {
                   ) : (
                     <h1 className="text-capitalize">
 
-                       {/* <br /> */}
-                       {
+                      {/* <br /> */}
+                      {
                         handleExtract() ? <>
                           Find a Drone Pilot in{" "} {handleExtract()}
                         </>
-                        :
-                        <>
-                        
-                        {location.replace(new RegExp("/", "g"), " ")?.replace(/-/g, ' ') || pageName?.replace(/-/g, ' ')}{" "}
-                        </>
+                          :
+                          <>
 
-                       }
+                            {location.replace(new RegExp("/", "g"), " ")?.replace(/-/g, ' ') || pageName?.replace(/-/g, ' ')}{" "}
+                          </>
+
+                      }
                     </h1>
                   )}
                   <div
@@ -252,7 +252,20 @@ const PilotList = () => {
 
       <section className="pilot_list">
         <Container>
-          <Row className="justify-content-end">
+          <Row className="justify-content-end align-items-center">
+            <Col md="4" className="mb-3">
+              <div className="d-md-flex gap-3">
+                <div className="pilot-list-plan-box">
+                  <img src={markerYellow} alt="" />
+                  <h6 className="m-0">Licenced Pilots</h6>
+                </div>
+                <div className="pilot-list-plan-box">
+                  <img src={markerBlue} alt="" />
+                  <h6 className="m-0">Unlicenced Pilots</h6>
+                </div>
+              </div>
+            </Col>
+
             <Col md="2" className="mb-3">
               <FormControl style={{ width: "100%", padding: "0px" }}>
                 <span className="costom_label">
@@ -289,7 +302,7 @@ const PilotList = () => {
                   inputProps={{ "aria-label": "Without label" }}
                 >
                   <MenuItem value="">
-                    <em className="filterby">category</em>
+                    <em className="filterby">All categories</em>
                   </MenuItem>
                   {categorylist?.map((row) => (
                     <MenuItem key={row._id} value={row.category_name}>
@@ -1042,15 +1055,21 @@ const PilotList = () => {
                     <Col md="3" key={i} className="mt-3">
                       <div className="pilot_list_box_main ">
                         <div className="pilot_profile_box_inner m-auto text-center">
-                          <img
-                            src={item.image || defaultUserIMG}
-                            alt=""
-                            style={{ maxWidth: "", maxHeight: "" }}
+                          <img src={item.image || defaultUserIMG} alt="" style={{ maxWidth: "", maxHeight: "" }}
                           />
                         </div>
 
                         <div className="pro_pilot">
                           <div className="pilot_list_name text-center text-capitalize">
+                            {(item && item?.preferred) ? (
+                              <span className="premium_pilott">
+                                <img src={markerYellow} alt="" style={{ height: "25px" }} />
+                              </span>
+                            ) :
+                              <span className="premium_pilott">
+                                <img src={markerBlue} alt="" style={{ height: "25px" }} />
+                              </span>
+                            }
                             {item.first_name + " " + item.last_name}
                           </div>
                           <div className="rating_count">

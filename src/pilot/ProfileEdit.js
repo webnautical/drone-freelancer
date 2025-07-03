@@ -128,6 +128,7 @@ export default function Profileedit() {
 
   const inputRef = useRef();
   const [error1, setError1] = useState('');
+
   const validateFile = (file) => {
     const allowedTypes = ['application/pdf', 'image/jpg', 'image/jpeg', 'image/png'];
     const maxSize = 2 * 1024 * 1024; // 2MB
@@ -152,13 +153,14 @@ export default function Profileedit() {
       files.forEach((file) => {
         if (validateFile(file)) {
           setPreviewQualification((prevFiles) => [...prevFiles, file?.name]);
-          const reader = new FileReader();
-          reader.readAsDataURL(file);
-          reader.onloadend = () => {
-            const base64Data = reader.result;
-            console.log("base64Data", base64Data)
-            setQualificationAttachement((prevFiles) => [...prevFiles, base64Data]);
-          };
+          // const reader = new FileReader();
+          // reader.readAsDataURL(file);
+          // reader.onloadend = () => {
+          //   const base64Data = reader.result;
+          //   setQualificationAttachement((prevFiles) => [...prevFiles, base64Data]);
+          // };
+          setQualificationAttachement((prevFiles) => [...prevFiles, file]);
+
         }
       });
     }
@@ -168,10 +170,15 @@ export default function Profileedit() {
   const onChooseFile = () => {
     inputRef.current.click();
   };
-  const removeFile = (index) => {
+
+  const [removedMedia, setRemovedMedia] = useState([])
+  const removeFile = (index, file) => {
     setQualificationAttachement((prevFiles) => prevFiles.filter((_, i) => i !== index));
     setPreviewQualification((prevFiles) => prevFiles.filter((_, i) => i !== index));
+    setRemovedMedia((prevFiles) => [...prevFiles, file]);
+
   };
+
 
   useEffect(() => {
     someAsyncFunction();
@@ -719,6 +726,7 @@ export default function Profileedit() {
     }
   }, [addUpdateApiCallCount, first_name, last_name, phone]);
 
+
   const [submitLoading, setSubmitLoading] = useState(false);
   const handleNext = async () => {
     someAsyncFunction();
@@ -786,9 +794,36 @@ export default function Profileedit() {
       setSubmitLoading(false);
     }
     if (activeStep === 2) {
+
+      try {
+        const fd = new FormData();
+        fd.append('userId', userDatas?._id);
+        qualificationAttachement.forEach((file) => {
+          fd.append("media", file);
+        });
+        removedMedia.forEach((file) => {
+          fd.append("removedMedia", file);
+        });
+        const res = await fetch(`${config.url}/user/updateMedia`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.jwt}`,
+          },
+          body: fd,
+        });
+        const data = await res.json();
+        if (res.ok && data?.status === 200) {
+          console.log("Success:", data);
+        } else {
+          console.error("Server error:", data);
+        }
+      } catch (err) {
+        console.error("Network / parsing error:", err);
+      }
+
       const updatedUser = {
         lisencs_type: licence,
-        qualification_expiry: valuees.qualification_expiry,
+        qualification_expiry: "",
         pro_drone_oprator_longtime: optime,
 
         rate_skill_level: skill,
@@ -797,32 +832,39 @@ export default function Profileedit() {
         maximum_wind_speed: windspeed,
         addition_services: valuees.addition_services,
         radio_certificate: valuees.radio_certificate,
-        attachment: qualificationAttachement
+        // attachment: qualificationAttachement
       };
 
-      await fetch(`${config.url}/user/addUserQualification`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.jwt}`
-        },
-        body: JSON.stringify(updatedUser)
-      })
-        .then((res) => {
-          return res.json();
+      try {
+        await fetch(`${config.url}/user/addUserQualification`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.jwt}`
+          },
+          body: JSON.stringify(updatedUser)
         })
-        .then((data) => {
-          if (data.status === 200) {
-            toastifySuccess('User Qualification Updated Successfully');
-            setActiveStep((prevActiveStep) => prevActiveStep + 1);
-            setActiveStep(2);
-            setSubmitLoading(false);
-          } else {
-            toastifyError('User Qualification Not Updated');
-            setActiveStep(2);
-            setSubmitLoading(false);
-          }
-        });
+          .then((res) => {
+            return res.json();
+          })
+          .then((data) => {
+            if (data.status === 200) {
+              toastifySuccess('User Qualification Updated Successfully');
+              setActiveStep((prevActiveStep) => prevActiveStep + 1);
+              setActiveStep(2);
+              setSubmitLoading(false);
+            } else {
+              toastifyError('User Qualification Not Updated');
+              setActiveStep(2);
+              setSubmitLoading(false);
+            }
+          });
+      } catch (error) {
+        console.log('asdf', error)
+        toastifyError("Something went wrong. try again letter")
+        setSubmitLoading(false);
+      }
+
     }
     if (activeStep === 3) {
       const updatedUser = {
@@ -951,6 +993,8 @@ export default function Profileedit() {
 
   // console.log("valuees",valuees)
 
+  console.log("userdad", userDatas)
+  console.log("userQualification", userQualification)
 
 
   return (
@@ -1592,7 +1636,7 @@ export default function Profileedit() {
                                     <div className="d-flex align-items-center">
                                       <p className="m-0">{file.startsWith('http') ? `attachement ${index + 1}` : file}</p>
                                     </div>
-                                    <button onClick={() => removeFile(index)}>
+                                    <button onClick={() => removeFile(index, file)}>
                                       <span className="material-symbols-rounded">
                                         <DeleteOutlineIcon />
                                       </span>
