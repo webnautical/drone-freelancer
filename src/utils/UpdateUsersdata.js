@@ -170,7 +170,7 @@ export default function UpdateUsersdata() {
 
   const validateFile = (file) => {
     const allowedTypes = ['application/pdf', 'image/jpg', 'image/jpeg', 'image/png'];
-    const maxSize = 2 * 1024 * 1024; // 2MB
+    const maxSize = 10 * 1024 * 1024; // 10MB
 
     if (!allowedTypes.includes(file.type)) {
       setError1('Invalid file type. Please select a valid image (JPG,JPEG, PNG) or document (PDF).');
@@ -178,7 +178,7 @@ export default function UpdateUsersdata() {
     }
 
     if (file.size > maxSize) {
-      setError1('File size exceeds 2MB limit. Please select a smaller file.');
+      setError1('File size exceeds 10MB limit. Please select a smaller file.');
       return false;
     }
 
@@ -1485,7 +1485,7 @@ export default function UpdateUsersdata() {
                           </span>{' '}
                           <p className="m-0 p-0">Upload Document</p>
                           <p className="m-0 p-0" style={{ fontSize: '12px' }}>
-                            Image (JPG,JPEG, PNG) or document (PDF) and file size less than 2MB.
+                            Image (JPG,JPEG, PNG) or document (PDF) and file size less than 10MB.
                           </p>
                         </button>
                         {error1 && <p style={{ color: 'red' }}>{error1}</p>}
